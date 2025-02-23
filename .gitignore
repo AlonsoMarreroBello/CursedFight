@@ -5,6 +5,7 @@
 *.mono/
 *.tmp/
 
+
 # Ignorar archivos binarios y exportados
 *.exe
 *.pck

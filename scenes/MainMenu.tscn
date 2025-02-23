@@ -115,12 +115,4 @@ text = "SALIR"
 layout_mode = 2
 texture = ExtResource("5_jrewm")
 
-[node name="AcceptDialog" type="AcceptDialog" parent="."]
-position = Vector2i(936, 615)
-visible = true
-unresizable = true
-always_on_top = true
-popup_window = true
-dialog_text = "ERI GEY?"
-
 [connection signal="pressed" from="Sprite2D/ExitButton" to="." method="_on_exit_button_pressed"]
