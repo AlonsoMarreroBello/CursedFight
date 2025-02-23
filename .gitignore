@@ -1,0 +1,22 @@
+# Ignorar archivos generados por Godot
+*.import/
+*.translation
+*.godot/
+*.mono/
+*.tmp/
+
+# Ignorar archivos binarios y exportados
+*.exe
+*.pck
+*.zip
+*.apk
+*.dmg
+
+# Ignorar configuraciones locales
+*.cfg
+*.ini
+
+# Ignorar carpetas de dependencias
+.addons/
+.cache/
+assets/
