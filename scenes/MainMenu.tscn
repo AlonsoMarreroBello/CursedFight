@@ -115,4 +115,6 @@ text = "SALIR"
 layout_mode = 2
 texture = ExtResource("5_jrewm")
 
+[connection signal="pressed" from="Sprite2D/OnePLayer" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="Sprite2D/TwoPlayers" to="." method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="Sprite2D/ExitButton" to="." method="_on_exit_button_pressed"]
