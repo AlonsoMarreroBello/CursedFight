@@ -49,7 +49,6 @@ public partial class StageSelection : Node2D
 
 	private void _change_texture(string textureRoute, Sprite2D sprite)
 	{
-		Texture2D _old_texture = sprite.Texture;
 
 		Texture2D _new_texture = GD.Load<Texture2D>(textureRoute);
 
@@ -60,10 +59,5 @@ public partial class StageSelection : Node2D
 		}
 
 		sprite.Texture = _new_texture;
-
-		if (_old_texture != null)
-		{
-			_old_texture.Dispose();
-		}
 	}
 }
