@@ -22,6 +22,7 @@ offset_top = -21.1287
 offset_right = -175.871
 offset_bottom = 143.871
 theme = ExtResource("2_7437i")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sprite2D/OnePLayer"]
 layout_mode = 0
@@ -45,6 +46,7 @@ offset_top = 117.96
 offset_right = -176.871
 offset_bottom = 284.96
 theme = ExtResource("2_7437i")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sprite2D/TwoPlayers"]
 layout_mode = 0
@@ -70,6 +72,7 @@ offset_bottom = 419.366
 theme = ExtResource("2_7437i")
 theme_override_constants/outline_size = 10
 theme_override_constants/align_to_largest_stylebox = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sprite2D/OptionsButton"]
 layout_mode = 0
@@ -94,6 +97,7 @@ offset_right = -185.881
 offset_bottom = 420.357
 theme = ExtResource("2_7437i")
 icon_alignment = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sprite2D/ExitButton"]
 layout_mode = 0
@@ -110,3 +114,13 @@ text = "SALIR"
 [node name="TextureRect" type="TextureRect" parent="Sprite2D/ExitButton/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_jrewm")
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+position = Vector2i(936, 615)
+visible = true
+unresizable = true
+always_on_top = true
+popup_window = true
+dialog_text = "ERI GEY?"
+
+[connection signal="pressed" from="Sprite2D/ExitButton" to="." method="_on_exit_button_pressed"]
