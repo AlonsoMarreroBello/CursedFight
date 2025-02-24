@@ -5,6 +5,9 @@ public partial class MainMenu : Node2D
 {
 	public override void _Ready()
 	{
+		AudioStreamPlayer _audio_player = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		AudioStream _new_texture = GD.Load<AudioStream>("ras://assets/Music/the-god-beyond-the-man-kaledon-main.mp3");
+		_audio_player.Play();
 	}
 
 	private void _on_exit_button_pressed()

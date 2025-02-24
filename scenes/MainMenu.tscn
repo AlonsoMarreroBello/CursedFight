@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bc0ncgpyrrr0x"]
+[gd_scene load_steps=9 format=3 uid="uid://bc0ncgpyrrr0x"]
 
 [ext_resource type="Texture2D" uid="uid://ci4kouo41qi47" path="res://assets/UI/menu.png" id="1_iyse3"]
 [ext_resource type="Script" path="res://scenes/MainMenu.cs" id="1_uqfhi"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bjowlcvgea1ef" path="res://assets/UI/Buttons/icons/gear.png" id="4_y4qyu"]
 [ext_resource type="Texture2D" uid="uid://cu8pa71pw8how" path="res://assets/UI/Buttons/icons/exitRight.png" id="5_jrewm"]
 [ext_resource type="Texture2D" uid="uid://dp2tmmstkf1rk" path="res://assets/UI/Buttons/icons/multiplayer.png" id="5_obd3y"]
+[ext_resource type="AudioStream" uid="uid://d3ix7jx1ji8y0" path="res://assets/Music/the-god-beyond-the-man-kaledon-main.mp3" id="8_g2aq8"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_uqfhi")
@@ -114,6 +115,9 @@ text = "SALIR"
 [node name="TextureRect" type="TextureRect" parent="Sprite2D/ExitButton/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_jrewm")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_g2aq8")
 
 [connection signal="pressed" from="Sprite2D/OnePLayer" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="Sprite2D/TwoPlayers" to="." method="_on_multiplayer_button_pressed"]
