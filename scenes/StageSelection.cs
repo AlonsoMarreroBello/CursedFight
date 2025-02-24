@@ -30,21 +30,17 @@ public partial class StageSelection : Node2D
 
 	private void _on_button_pressed(string buttonName)
 	{
-		switch (buttonName)
-		{
-			case "airplane":
-				GD.Print("airplane");
-				break;
-			case "fight_club":
-				GD.Print("fight_club");
-				break;
-			case "throne_room":
-				GD.Print("throne_room");
-				break;
+		Global._actual_stage = buttonName;
 
-			default:
-				break;
+		PackedScene _new_scene = GD.Load<PackedScene>("res://scenes/CombatScreen.tscn");
+		if (_new_scene == null)
+		{
+			GD.Print("Error: No se pudo cargar la escena en la ruta: res://scenes/MainMenu");
+			return;
 		}
+
+		GetTree().ChangeSceneToPacked(_new_scene);
+
 	}
 
 	private void _on_return_button_pressed()
