@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvvj60y3lmdmk"]
+
+[ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
+[ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
+[ext_resource type="Texture2D" uid="uid://b53xvqia43xh" path="res://assets/BackGrounds/Airplain/Airplane.png" id="1_oh284"]
+[ext_resource type="Texture2D" uid="uid://bl2eqwx85whe7" path="res://assets/BackGrounds/FightClub/FightClub02.png" id="2_w6a75"]
+[ext_resource type="Texture2D" uid="uid://cvsdiegobia77" path="res://assets/BackGrounds/ThroneRoom/ThroneRoom.png" id="3_nau5g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5pnxe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oh284")
+}],
+"loop": true,
+"name": &"airplane",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_h6yxv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_w6a75")
+}],
+"loop": true,
+"name": &"fight_club",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_nau5g")
+}],
+"loop": true,
+"name": &"throne_room",
+"speed": 5.0
+}]
+
+[node name="CombatScreen" type="Node2D"]
+script = ExtResource("1_m2jjk")
+
+[node name="BackgroundImage" type="AnimatedSprite2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(0.753, 0.753)
+sprite_frames = SubResource("SpriteFrames_5pnxe")
+animation = &"fight_club"
