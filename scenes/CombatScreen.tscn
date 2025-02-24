@@ -1,10 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvvj60y3lmdmk"]
+[gd_scene load_steps=12 format=3 uid="uid://dvvj60y3lmdmk"]
 
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
 [ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
 [ext_resource type="Texture2D" uid="uid://b53xvqia43xh" path="res://assets/BackGrounds/Airplain/Airplane.png" id="1_oh284"]
 [ext_resource type="Texture2D" uid="uid://bl2eqwx85whe7" path="res://assets/BackGrounds/FightClub/FightClub02.png" id="2_w6a75"]
 [ext_resource type="Texture2D" uid="uid://cvsdiegobia77" path="res://assets/BackGrounds/ThroneRoom/ThroneRoom.png" id="3_nau5g"]
+[ext_resource type="Texture2D" uid="uid://d0j7d22rgiyk3" path="res://assets/UI/CombatScreen/healthBar/HEALTH_BAR_BACKGROUND.png" id="6_cag1l"]
+[ext_resource type="Texture2D" uid="uid://g6nwo4ak54wn" path="res://assets/UI/CombatScreen/healthBar/HEALTH BAR.png" id="7_rljoi"]
+[ext_resource type="Texture2D" uid="uid://d27pbfkqlttfe" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR_BACKGROUND.png" id="8_mm6ax"]
+[ext_resource type="Texture2D" uid="uid://flb1t5wsswgo" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR.png" id="9_de3vv"]
+[ext_resource type="Texture2D" uid="uid://d1n2tq1xy3jed" path="res://assets/UI/CombatScreen/timer/TIMER.png" id="10_cpny2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5pnxe"]
 animations = [{
@@ -37,6 +42,7 @@ animations = [{
 }]
 
 [node name="CombatScreen" type="Node2D"]
+position = Vector2(-3, 0)
 script = ExtResource("1_m2jjk")
 
 [node name="BackgroundImage" type="AnimatedSprite2D" parent="."]
@@ -44,3 +50,62 @@ position = Vector2(960, 540)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_5pnxe")
 animation = &"fight_club"
+frame = 1
+frame_progress = 0.74228
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player1" type="CanvasLayer" parent="CanvasLayer"]
+
+[node name="LifeBar" type="TextureProgressBar" parent="CanvasLayer/Player1"]
+anchors_preset = -1
+offset_left = 144.0
+offset_top = -64.0
+offset_right = 2644.0
+offset_bottom = 2436.0
+scale = Vector2(0.265, 0.195)
+texture_under = ExtResource("6_cag1l")
+texture_progress = ExtResource("7_rljoi")
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyBar" type="TextureProgressBar" parent="CanvasLayer/Player1"]
+offset_left = 208.0
+offset_top = -146.0
+offset_right = 2708.0
+offset_bottom = 2354.0
+scale = Vector2(0.235, 0.195)
+texture_under = ExtResource("8_mm6ax")
+texture_progress = ExtResource("9_de3vv")
+metadata/_edit_use_anchors_ = true
+
+[node name="Player2" type="CanvasLayer" parent="CanvasLayer"]
+
+[node name="LifeBar" type="TextureProgressBar" parent="CanvasLayer/Player2"]
+anchors_preset = -1
+offset_left = 1777.5
+offset_top = -63.0
+offset_right = 4277.5
+offset_bottom = 2437.0
+scale = Vector2(-0.265, 0.195)
+texture_under = ExtResource("6_cag1l")
+texture_progress = ExtResource("7_rljoi")
+metadata/_edit_use_anchors_ = true
+
+[node name="EnergyBar" type="TextureProgressBar" parent="CanvasLayer/Player2"]
+offset_left = 1706.5
+offset_top = -147.0
+offset_right = 4206.5
+offset_bottom = 2353.0
+scale = Vector2(-0.235, 0.195)
+texture_under = ExtResource("8_mm6ax")
+texture_progress = ExtResource("9_de3vv")
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/CanvasLayer"]
+position = Vector2(958, 139)
+scale = Vector2(0.132, 0.132)
+texture = ExtResource("10_cpny2")
+
+[node name="Timer" type="Timer" parent="."]
