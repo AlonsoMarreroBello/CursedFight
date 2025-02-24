@@ -1,9 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdw7l4fneqabq"]
+[gd_scene load_steps=12 format=3 uid="uid://bdw7l4fneqabq"]
 
 [ext_resource type="Texture2D" uid="uid://b14re6y57pl2p" path="res://assets/UI/MapSelector.png" id="1_ko41r"]
 [ext_resource type="Script" path="res://scenes/StageSelection.cs" id="1_mvmjv"]
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="2_0c08a"]
 [ext_resource type="Theme" uid="uid://drjfnpq7v38fo" path="res://assets/UI/MapSelector/MapSelector.tres" id="2_hd626"]
+[ext_resource type="Texture2D" uid="uid://xofe1uo1tvb5" path="res://assets/UI/Buttons/returnOnClick.png" id="5_7cm27"]
+[ext_resource type="Texture2D" uid="uid://7vwt2wlbcdsj" path="res://assets/UI/Buttons/return.png" id="5_8lmxr"]
+[ext_resource type="Texture2D" uid="uid://b2s34b0n3ry2g" path="res://assets/UI/Buttons/returnHover.png" id="5_t66kb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_61kxl"]
+texture = ExtResource("5_7cm27")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocfce"]
+texture = ExtResource("5_t66kb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yt2xp"]
+texture = ExtResource("5_7cm27")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owlg0"]
+texture = ExtResource("5_8lmxr")
 
 [node name="StageSelection" type="Node2D"]
 script = ExtResource("1_mvmjv")
@@ -78,9 +93,21 @@ offset_right = -397.748
 offset_bottom = 288.404
 theme = ExtResource("2_hd626")
 
+[node name="ReturnButton" type="Button" parent="."]
+offset_left = 1831.0
+offset_right = 1920.0
+offset_bottom = 91.0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_61kxl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ocfce")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yt2xp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_owlg0")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="mouse_entered" from="Selector/Map1/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["airplane"]]
 [connection signal="pressed" from="Selector/Map1/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["airplane"]]
 [connection signal="mouse_entered" from="Selector/Map2/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["fight_club"]]
 [connection signal="pressed" from="Selector/Map2/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["fight_club"]]
 [connection signal="mouse_entered" from="Selector/Map3/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["throne_room"]]
 [connection signal="pressed" from="Selector/Map3/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["throne_room"]]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

@@ -47,6 +47,18 @@ public partial class StageSelection : Node2D
 		}
 	}
 
+	private void _on_return_button_pressed()
+	{
+		PackedScene _new_scene = GD.Load<PackedScene>("res://scenes/MainMenu.tscn");
+		if (_new_scene == null)
+		{
+			GD.Print("Error: No se pudo cargar la escena en la ruta: res://scenes/MainMenu");
+			return;
+		}
+
+		GetTree().ChangeSceneToPacked(_new_scene);
+	}
+
 	private void _change_texture(string textureRoute, Sprite2D sprite)
 	{
 
