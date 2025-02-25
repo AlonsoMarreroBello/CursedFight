@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvvj60y3lmdmk"]
+[gd_scene load_steps=14 format=3 uid="uid://dvvj60y3lmdmk"]
 
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
 [ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d27pbfkqlttfe" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR_BACKGROUND.png" id="8_mm6ax"]
 [ext_resource type="Texture2D" uid="uid://flb1t5wsswgo" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR.png" id="9_de3vv"]
 [ext_resource type="Texture2D" uid="uid://d1n2tq1xy3jed" path="res://assets/UI/CombatScreen/timer/TIMER.png" id="10_cpny2"]
+[ext_resource type="PackedScene" uid="uid://p28js4xdygbd" path="res://scenes/Player.tscn" id="11_e3v3d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5pnxe"]
 animations = [{
@@ -40,6 +41,9 @@ animations = [{
 "name": &"throne_room",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isp2q"]
+size = Vector2(2001, 104)
 
 [node name="CombatScreen" type="Node2D"]
 position = Vector2(-3, 0)
@@ -124,10 +128,13 @@ text = "99"
 [node name="Timer" type="Timer" parent="."]
 wait_time = 99.0
 
+[node name="Player" parent="." instance=ExtResource("11_e3v3d")]
+position = Vector2(389, 599)
+
 [node name="StageLimits" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StageLimits"]
-position = Vector2(3, 257)
-polygon = PackedVector2Array(-2, -257, 0, -257, 0, 790, 1920, 791, 1920, -258, 1924, -258, 1922, 793, -2, 792)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StageLimits"]
+position = Vector2(988.5, 1063)
+shape = SubResource("RectangleShape2D_isp2q")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

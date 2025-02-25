@@ -35,7 +35,7 @@ public partial class CombatScreen : Node2D
 		_timer_label = GetNode<Label>("UI/Timer/TimerLabel");
 
 		_timer.Start();
-
+		
 	}
 
 	public override void _Process(double delta)
