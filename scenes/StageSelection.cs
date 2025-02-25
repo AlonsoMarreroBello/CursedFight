@@ -14,13 +14,13 @@ public partial class StageSelection : Node2D
 		switch (buttonName)
 		{
 			case "airplane":
-				_change_texture("res://assets/BackGrounds/Airplain/Airplane.png", _background_image);
+				_change_texture(CursedFight.Global.Assets.AIRPLANE_BACKGROUND, _background_image);
 				break;
 			case "fight_club":
-				_change_texture("res://assets/BackGrounds/FightClub/FightClub01.png", _background_image);
+				_change_texture(CursedFight.Global.Assets.FIGHT_CLUB_BACKGROUND, _background_image);
 				break;
 			case "throne_room":
-				_change_texture("res://assets/BackGrounds/ThroneRoom/ThroneRoom.png", _background_image);
+				_change_texture(CursedFight.Global.Assets.THRONE_ROOM_BACKGROUND, _background_image);
 				break;
 
 			default:
@@ -30,12 +30,12 @@ public partial class StageSelection : Node2D
 
 	private void _on_button_pressed(string buttonName)
 	{
-		Global._actual_stage = buttonName;
+		CursedFight.Global.Context.SetActualStage(buttonName);
 
-		PackedScene _new_scene = GD.Load<PackedScene>("res://scenes/CombatScreen.tscn");
+		PackedScene _new_scene = GD.Load<PackedScene>(CursedFight.Global.Scenes.COMBAT_SCREEN);
 		if (_new_scene == null)
 		{
-			GD.Print("Error: No se pudo cargar la escena en la ruta: res://scenes/MainMenu");
+			GD.Print("Error: No se pudo cargar la escena en la ruta: " + CursedFight.Global.Scenes.COMBAT_SCREEN);
 			return;
 		}
 
@@ -45,10 +45,10 @@ public partial class StageSelection : Node2D
 
 	private void _on_return_button_pressed()
 	{
-		PackedScene _new_scene = GD.Load<PackedScene>("res://scenes/MainMenu.tscn");
+		PackedScene _new_scene = GD.Load<PackedScene>(CursedFight.Global.Scenes.MAIN_MENU);
 		if (_new_scene == null)
 		{
-			GD.Print("Error: No se pudo cargar la escena en la ruta: res://scenes/MainMenu");
+			GD.Print("Error: No se pudo cargar la escena en la ruta: " + CursedFight.Global.Scenes.MAIN_MENU);
 			return;
 		}
 

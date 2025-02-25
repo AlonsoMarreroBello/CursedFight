@@ -1,30 +1,27 @@
 using Godot;
-using System;
 
 public partial class CombatScreen : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
-
 	Timer _timer;
 	Label _timer_label;
 	public override void _Ready()
 	{
 		AnimatedSprite2D _background_image = GetNode<AnimatedSprite2D>("BackgroundImage");
 		AudioStreamPlayer _audio_player = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
-		AudioStream _new_audio = GD.Load<AudioStream>("res://assets/Music/the-god-beyond-the-man-kaledon-main.mp3"); ;
-		switch (Global._actual_stage)
+		AudioStream _new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.MAIN_THEME); ;
+		switch (CursedFight.Global.Context.GetActualStage())
 		{
 			case "airplane":
 				_change_texture("airplane", _background_image);
-				_new_audio = GD.Load<AudioStream>("res://assets/Music/the-god-beyond-the-man-kaledon-main.mp3");
+				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.MAIN_THEME);
 				break;
 			case "fight_club":
 				_change_texture("fight_club", _background_image);
-				_new_audio = GD.Load<AudioStream>("res://assets/Music/pounding-industrial-techno-instrumental.mp3");
+				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.TECHNO_THEME);
 				break;
 			case "throne_room":
 				_change_texture("throne_room", _background_image);
-				_new_audio = GD.Load<AudioStream>("res://assets/Music/surprise-impact.mp3");
+				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.SURPRISE_IMPACT);
 				break;
 
 			default:
