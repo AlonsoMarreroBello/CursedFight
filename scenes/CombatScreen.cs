@@ -4,6 +4,9 @@ using System;
 public partial class CombatScreen : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
+
+	Timer _timer;
+	Label _timer_label;
 	public override void _Ready()
 	{
 		AnimatedSprite2D _background_image = GetNode<AnimatedSprite2D>("BackgroundImage");
@@ -22,16 +25,22 @@ public partial class CombatScreen : Node2D
 			default:
 				break;
 		}
+
+		_timer = GetNode<Timer>("Timer");
+		_timer_label = GetNode<Label>("UI/Timer/TimerLabel");
+
+		_timer.Start();
+
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		_timer_label.Text = ((int)_timer.TimeLeft).ToString();
 	}
+
 
 	private void _change_texture(string _animation_name, AnimatedSprite2D sprite)
 	{
-
 		sprite.Play(_animation_name);
 	}
 }
