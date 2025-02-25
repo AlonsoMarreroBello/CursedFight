@@ -46,7 +46,7 @@ position = Vector2(-3, 0)
 script = ExtResource("1_m2jjk")
 
 [node name="BackgroundImage" type="AnimatedSprite2D" parent="."]
-position = Vector2(960, 540)
+position = Vector2(963, 540)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_5pnxe")
 animation = &"fight_club"
@@ -123,3 +123,9 @@ text = "99"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 99.0
+
+[node name="StageLimits" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StageLimits"]
+position = Vector2(3, 257)
+polygon = PackedVector2Array(-2, -257, 0, -257, 0, 790, 1920, 791, 1920, -258, 1924, -258, 1922, 793, -2, 792)
