@@ -12,8 +12,7 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		animatedSprite2D.Play("kick");
-		GD.Print("Player ready1");
+		animatedSprite2D.Play("idle");
 	}
 
 	public override void _PhysicsProcess(double delta)
