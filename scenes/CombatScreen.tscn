@@ -129,3 +129,5 @@ wait_time = 99.0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StageLimits"]
 position = Vector2(3, 257)
 polygon = PackedVector2Array(-2, -257, 0, -257, 0, 790, 1920, 791, 1920, -258, 1924, -258, 1922, 793, -2, 792)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
