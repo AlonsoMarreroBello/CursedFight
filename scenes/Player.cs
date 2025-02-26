@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
+	[Export] public int playerNumber = 1;
     public const float Speed = 1000.0f;
     public const float JumpHeight = -2050.0f;
     public const float JumpSpeedMultiplier = 8.5f;
@@ -25,7 +26,8 @@ public partial class Player : CharacterBody2D
     private Dictionary<string, int> impactFrames;
 
     private string currentAnimation = "idle";
-
+	private Player otherPlayer;
+	private bool facingRight = true;
     public override void _Ready()
     {
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
@@ -48,7 +50,13 @@ public partial class Player : CharacterBody2D
 		originalLowerBodyHitboxPositionY = hitboxLowerBody.Position.Y;
 		originalLowerBodyHitboxPositionX = hitboxLowerBody.Position.X;
 		animatedSprite2D.AnimationFinished += _on_animation_finished;
+		facingRight = playerNumber == 1;
     }
+
+	public void _set_other_player(Player otherPlayer){
+		this.otherPlayer = otherPlayer;
+		_update_facing_direction();
+	}
 
 	private void _on_animation_finished(){
 		if (currentAnimation != "jump" && currentAnimation!= "fall")
@@ -77,31 +85,48 @@ public partial class Player : CharacterBody2D
             }
         }
 
-        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+        if ((playerNumber == 1 && Input.IsActionJustPressed("jump1") || playerNumber == 2 && Input.IsActionJustPressed("jump2")) && IsOnFloor())
         {
             velocity.Y = JumpHeight;
             _change_state("jump"); 
             GD.Print("Salto: " + currentAnimation);
         }
-        else if (Input.IsActionJustPressed("punch"))
+        else if (playerNumber == 1 && Input.IsActionJustPressed("punch1") || playerNumber == 2 && Input.IsActionJustPressed("punch2"))
         {
             _change_state("punch");
         }
-        else if (Input.IsActionJustPressed("kick"))
+        else if (playerNumber == 1 && Input.IsActionJustPressed("kick1") || playerNumber == 2 && Input.IsActionJustPressed("kick2"))
         {
             _change_state("kick");
         }
+		Vector2 direction = Vector2.Zero;
+        	if (playerNumber == 1){
+			Vector2 playerOneDirection = Input.GetVector("left1", "right1", "jump1", "crouch1");
+			direction = playerOneDirection;
+		}
+		if (playerNumber == 2){
+			Vector2 playerTwoDirection = Input.GetVector("left2", "right2", "jump2", "crouch2");
+			direction = playerTwoDirection;
+		}
 
-        Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
         if (direction != Vector2.Zero)
         {
             velocity.X = direction.X * Speed;
-            animatedSprite2D.FlipH = direction.X < 0;
+
+            if (direction.X > 0)
+            {
+                facingRight = true;
+            }
+            else if (direction.X < 0)
+            {
+                facingRight = false;
+            }
         }
         else
         {
             velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
         }
+
 
         Velocity = velocity;
         MoveAndSlide();
@@ -120,33 +145,47 @@ public partial class Player : CharacterBody2D
                 GD.Print("Toca suelo: " + currentAnimation);
             }
         }
+
+		 _update_facing_direction();
     }
 
     public override void _Process(double delta)
     {
-        if (animatedSprite2D.FlipH)
-        {
-            hitboxPunch.Scale = new Vector2(-1, 1);
-            hitboxKick.Scale = new Vector2(-1, 1);
-        }
-        else
-        {
-            hitboxPunch.Scale = new Vector2(1, 1);
-            hitboxKick.Scale = new Vector2(1, 1);
-        }
+       
+        _handle_hitbox_positions();
 
+    }
+
+    // Actualiza la dirección del sprite
+    private void _update_facing_direction()
+    {
+        if (otherPlayer != null)
+        {
+            
+            facingRight = Position.X < otherPlayer.Position.X;
+        }
+        animatedSprite2D.FlipH = !facingRight;  
+    }
+
+
+    private void _handle_hitbox_positions()
+    {
+        if (animatedSprite2D.FlipH)
+    	{
+        	hitboxPunch.Scale = new Vector2(-1, 1);
+        	hitboxKick.Scale = new Vector2(-1, 1);
+    	}
+   		 else
+    	{
+        	hitboxPunch.Scale = new Vector2(1, 1);
+        	hitboxKick.Scale = new Vector2(1, 1);
+    	}
         if (animatedSprite2D.Animation == "kick")
         {
-            if (animatedSprite2D.FlipH)
-            {
-                hitboxUpperBody.Position = new Vector2(200, originalUpperBodyHitboxPositionY);
-				hitboxLowerBody.Position = new Vector2(100, originalLowerBodyHitboxPositionY);
-            }
-            else
-            {
-                hitboxUpperBody.Position = new Vector2(-200, originalUpperBodyHitboxPositionY);
-				hitboxLowerBody.Position = new Vector2(-100, originalLowerBodyHitboxPositionY);
-            }
+            float directionModifier = animatedSprite2D.FlipH ? 1 : -1; // 1 si mira a la derecha, -1 si mira a la izquierda
+            hitboxUpperBody.Position = new Vector2(directionModifier * 200, originalUpperBodyHitboxPositionY);
+            hitboxLowerBody.Position = new Vector2(directionModifier * 100, originalLowerBodyHitboxPositionY);
+
             if (animatedSprite2D.Frame == impactFrames["kick"])
             {
                 hitboxKick.Visible = true;
@@ -156,23 +195,18 @@ public partial class Player : CharacterBody2D
             {
                 hitboxKick.Visible = false;
                 hitboxKick.Monitoring = false;
-                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX,originalUpperBodyHitboxPositionY );
-				hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX,originalLowerBodyHitboxPositionY );
+                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
+                hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
             }
         }
-
-        if (animatedSprite2D.Animation == "punch")
+        else if (animatedSprite2D.Animation == "punch")
         {
-            if (animatedSprite2D.FlipH)
-            {
-                hitboxUpperBody.Position = new Vector2(-50, originalUpperBodyHitboxPositionY);
-				hitboxLowerBody.Position = new Vector2(-50, originalLowerBodyHitboxPositionY);
-            }
-            else
-            {
-                hitboxUpperBody.Position = new Vector2(50, originalUpperBodyHitboxPositionY);
-				hitboxLowerBody.Position = new Vector2(50, originalLowerBodyHitboxPositionY);
-            }
+            float directionModifier = animatedSprite2D.FlipH ? 1 : -1; // 1 si mira a la derecha, -1 si mira a la izquierda
+
+            hitboxUpperBody.Position = new Vector2(directionModifier * 50, originalUpperBodyHitboxPositionY);
+            hitboxLowerBody.Position = new Vector2(directionModifier * 50, originalLowerBodyHitboxPositionY);
+
+
             if (animatedSprite2D.Frame == impactFrames["punch"])
             {
                 hitboxPunch.Visible = true;
@@ -182,10 +216,21 @@ public partial class Player : CharacterBody2D
             {
                 hitboxPunch.Visible = false;
                 hitboxPunch.Monitoring = false;
-                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX,originalUpperBodyHitboxPositionY );
-				hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX,originalLowerBodyHitboxPositionY );
-                
+                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
+                hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
+
             }
+
+            
+        }
+        else{
+             hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
+             hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
+             hitboxPunch.Visible = false;
+             hitboxPunch.Monitoring = false;
+             hitboxKick.Visible = false;
+             hitboxKick.Monitoring = false;
+
         }
     }
 

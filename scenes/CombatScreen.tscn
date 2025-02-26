@@ -134,6 +134,10 @@ wait_time = 99.0
 [node name="Player" parent="." instance=ExtResource("11_e3v3d")]
 position = Vector2(344, 775)
 
+[node name="Player2" parent="." instance=ExtResource("11_e3v3d")]
+position = Vector2(1513, 772)
+playerNumber = 2
+
 [node name="StageLimits" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StageLimits"]

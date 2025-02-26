@@ -4,6 +4,7 @@ public partial class CombatScreen : Node2D
 {
 	Timer _timer;
 	Label _timer_label;
+
 	public override void _Ready()
 	{
 		AnimatedSprite2D _background_image = GetNode<AnimatedSprite2D>("BackgroundImage");
@@ -36,6 +37,11 @@ public partial class CombatScreen : Node2D
 
 		_timer.Start();
 		
+		Player player1 = GetNode<Player>("Player");
+		Player player2 = GetNode<Player>("Player2");
+
+		player1._set_other_player(player2);
+		player2._set_other_player(player1);
 	}
 
 	public override void _Process(double delta)

@@ -258,7 +258,7 @@ size = Vector2(205, 39)
 size = Vector2(159, 63)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohrk5"]
-size = Vector2(345, 287)
+size = Vector2(162, 287)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_bu5mk")
@@ -284,5 +284,5 @@ position = Vector2(175.5, -129)
 shape = SubResource("RectangleShape2D_rh47m")
 
 [node name="HitboxLowerBody" type="CollisionShape2D" parent="."]
-position = Vector2(13.5, 133.5)
+position = Vector2(-7, 133.5)
 shape = SubResource("RectangleShape2D_ohrk5")
