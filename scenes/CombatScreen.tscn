@@ -43,7 +43,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_htrw5"]
-size = Vector2(29, 1055)
+size = Vector2(84.5, 1055)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isp2q"]
 size = Vector2(2254, 32)
@@ -132,12 +132,12 @@ text = "99"
 wait_time = 99.0
 
 [node name="Player" parent="." instance=ExtResource("11_e3v3d")]
-position = Vector2(173, 8)
+position = Vector2(344, 775)
 
 [node name="StageLimits" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StageLimits"]
-position = Vector2(1935, 524)
+position = Vector2(1965, 522)
 shape = SubResource("RectangleShape2D_htrw5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StageLimits"]
@@ -145,7 +145,7 @@ position = Vector2(966, 1069)
 shape = SubResource("RectangleShape2D_isp2q")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StageLimits"]
-position = Vector2(0.5, 525.5)
+position = Vector2(-35, 523)
 shape = SubResource("RectangleShape2D_htrw5")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

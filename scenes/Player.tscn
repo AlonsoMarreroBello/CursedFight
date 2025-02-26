@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://p28js4xdygbd"]
+[gd_scene load_steps=42 format=3 uid="uid://p28js4xdygbd"]
 
 [ext_resource type="Script" path="res://scenes/Player.cs" id="1_bu5mk"]
 [ext_resource type="Texture2D" uid="uid://cwqc58ley0lfg" path="res://assets/Spritesheets/Greimary/KICK_SPRITESHEET.png" id="1_lfo6w"]
@@ -222,7 +222,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"kick",
-"speed": 30.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -245,11 +245,11 @@ animations = [{
 }],
 "loop": false,
 "name": &"punch",
-"speed": 30.0
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi4yj"]
-size = Vector2(102, 553)
+size = Vector2(102, 284.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7xf6"]
 size = Vector2(205, 39)
@@ -257,15 +257,18 @@ size = Vector2(205, 39)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rh47m"]
 size = Vector2(159, 63)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohrk5"]
+size = Vector2(345, 287)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_bu5mk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_u5yrm")
-animation = &"fall"
+animation = &"punch"
 
-[node name="HitboxBody" type="CollisionShape2D" parent="."]
-position = Vector2(-8, -9)
+[node name="HitboxUpperBody" type="CollisionShape2D" parent="."]
+position = Vector2(-9, -152.875)
 shape = SubResource("RectangleShape2D_xi4yj")
 
 [node name="HitboxPunch" type="Area2D" parent="."]
@@ -279,3 +282,7 @@ shape = SubResource("RectangleShape2D_l7xf6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxKick"]
 position = Vector2(175.5, -129)
 shape = SubResource("RectangleShape2D_rh47m")
+
+[node name="HitboxLowerBody" type="CollisionShape2D" parent="."]
+position = Vector2(13.5, 133.5)
+shape = SubResource("RectangleShape2D_ohrk5")

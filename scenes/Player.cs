@@ -12,10 +12,16 @@ public partial class Player : CharacterBody2D
 
     private Area2D hitboxPunch;
     private Area2D hitboxKick;
+	private CollisionShape2D hitboxUpperBody;
 
-    private CollisionShape2D hitboxBody;
+    private CollisionShape2D hitboxLowerBody;
 
-    private float originalHitBoxBodyPosition;
+    private float originalUpperBodyHitboxPositionX;
+	private float originalUpperBodyHitboxPositionY;
+
+	private float originalLowerBodyHitboxPositionY;
+
+	private float originalLowerBodyHitboxPositionX;
     private Dictionary<string, int> impactFrames;
 
     private string currentAnimation = "idle";
@@ -35,8 +41,12 @@ public partial class Player : CharacterBody2D
         hitboxKick = GetNode<Area2D>("HitboxKick");
         hitboxKick.Monitoring = false;
         hitboxKick.Visible = false;
-        hitboxBody = GetNode<CollisionShape2D>("HitboxBody");
-        originalHitBoxBodyPosition = hitboxBody.Position.X;
+        hitboxUpperBody = GetNode<CollisionShape2D>("HitboxUpperBody");
+		hitboxLowerBody = GetNode<CollisionShape2D>("HitboxLowerBody");
+        originalUpperBodyHitboxPositionX = hitboxUpperBody.Position.X;
+		originalUpperBodyHitboxPositionY = hitboxUpperBody.Position.Y;
+		originalLowerBodyHitboxPositionY = hitboxLowerBody.Position.Y;
+		originalLowerBodyHitboxPositionX = hitboxLowerBody.Position.X;
 		animatedSprite2D.AnimationFinished += _on_animation_finished;
     }
 
@@ -129,11 +139,13 @@ public partial class Player : CharacterBody2D
         {
             if (animatedSprite2D.FlipH)
             {
-                hitboxBody.Position = new Vector2(200, 0);
+                hitboxUpperBody.Position = new Vector2(200, originalUpperBodyHitboxPositionY);
+				hitboxLowerBody.Position = new Vector2(100, originalLowerBodyHitboxPositionY);
             }
             else
             {
-                hitboxBody.Position = new Vector2(-200, 0);
+                hitboxUpperBody.Position = new Vector2(-200, originalUpperBodyHitboxPositionY);
+				hitboxLowerBody.Position = new Vector2(-100, originalLowerBodyHitboxPositionY);
             }
             if (animatedSprite2D.Frame == impactFrames["kick"])
             {
@@ -144,7 +156,8 @@ public partial class Player : CharacterBody2D
             {
                 hitboxKick.Visible = false;
                 hitboxKick.Monitoring = false;
-                hitboxBody.Position = new Vector2(originalHitBoxBodyPosition, 0);
+                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX,originalUpperBodyHitboxPositionY );
+				hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX,originalLowerBodyHitboxPositionY );
             }
         }
 
@@ -152,11 +165,13 @@ public partial class Player : CharacterBody2D
         {
             if (animatedSprite2D.FlipH)
             {
-                hitboxBody.Position = new Vector2(-50, 0);
+                hitboxUpperBody.Position = new Vector2(-50, originalUpperBodyHitboxPositionY);
+				hitboxLowerBody.Position = new Vector2(-50, originalLowerBodyHitboxPositionY);
             }
             else
             {
-                hitboxBody.Position = new Vector2(50, 0);
+                hitboxUpperBody.Position = new Vector2(50, originalUpperBodyHitboxPositionY);
+				hitboxLowerBody.Position = new Vector2(50, originalLowerBodyHitboxPositionY);
             }
             if (animatedSprite2D.Frame == impactFrames["punch"])
             {
@@ -167,7 +182,9 @@ public partial class Player : CharacterBody2D
             {
                 hitboxPunch.Visible = false;
                 hitboxPunch.Monitoring = false;
-                hitboxBody.Position = new Vector2(originalHitBoxBodyPosition, 0);
+                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX,originalUpperBodyHitboxPositionY );
+				hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX,originalLowerBodyHitboxPositionY );
+                
             }
         }
     }
