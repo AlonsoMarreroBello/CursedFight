@@ -46,7 +46,7 @@ animations = [{
 size = Vector2(29, 1055)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isp2q"]
-size = Vector2(1942, 28)
+size = Vector2(2254, 32)
 
 [node name="CombatScreen" type="Node2D"]
 position = Vector2(-3, 0)
@@ -132,7 +132,7 @@ text = "99"
 wait_time = 99.0
 
 [node name="Player" parent="." instance=ExtResource("11_e3v3d")]
-position = Vector2(421, 775)
+position = Vector2(173, 8)
 
 [node name="StageLimits" type="StaticBody2D" parent="."]
 
@@ -141,7 +141,7 @@ position = Vector2(1935, 524)
 shape = SubResource("RectangleShape2D_htrw5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StageLimits"]
-position = Vector2(965, 1067)
+position = Vector2(966, 1069)
 shape = SubResource("RectangleShape2D_isp2q")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StageLimits"]
