@@ -91,14 +91,22 @@ public partial class Player : CharacterBody2D
             _change_state("jump"); 
             GD.Print("Salto: " + currentAnimation);
         }
-        else if (playerNumber == 1 && Input.IsActionJustPressed("punch1") || playerNumber == 2 && Input.IsActionJustPressed("punch2"))
+        else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("punch1") || playerNumber == 2 && Input.IsActionJustPressed("punch2")))
         {
             _change_state("punch");
         }
-        else if (playerNumber == 1 && Input.IsActionJustPressed("kick1") || playerNumber == 2 && Input.IsActionJustPressed("kick2"))
+        else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("kick1") || playerNumber == 2 && Input.IsActionJustPressed("kick2")))
         {
             _change_state("kick");
-        }
+        } else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("crouch1") || playerNumber == 2 && Input.IsActionJustPressed("crouch2"))) {
+			_change_state("crouch");
+		} else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustReleased("crouch1") || playerNumber == 2 && Input.IsActionJustReleased("crouch2"))) {
+			_change_state("idle");
+		} else if(IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("guard1") || playerNumber == 2 && Input.IsActionJustPressed("guard2"))) {
+			_change_state("guard");
+		} else if(IsOnFloor() && (playerNumber == 1 && Input.IsActionJustReleased("guard1") || playerNumber == 2 && Input.IsActionJustPressed("guard2"))) {
+			_change_state("idle");
+		}
 		Vector2 direction = Vector2.Zero;
         	if (playerNumber == 1){
 			Vector2 playerOneDirection = Input.GetVector("left1", "right1", "jump1", "crouch1");
@@ -144,8 +152,7 @@ public partial class Player : CharacterBody2D
                 }
                 GD.Print("Toca suelo: " + currentAnimation);
             }
-        }
-
+		}
 		 _update_facing_direction();
     }
 
@@ -182,7 +189,7 @@ public partial class Player : CharacterBody2D
     	}
         if (animatedSprite2D.Animation == "kick")
         {
-            float directionModifier = animatedSprite2D.FlipH ? 1 : -1; // 1 si mira a la derecha, -1 si mira a la izquierda
+            float directionModifier = animatedSprite2D.FlipH ? 1 : -1; 
             hitboxUpperBody.Position = new Vector2(directionModifier * 200, originalUpperBodyHitboxPositionY);
             hitboxLowerBody.Position = new Vector2(directionModifier * 100, originalLowerBodyHitboxPositionY);
 
@@ -201,7 +208,7 @@ public partial class Player : CharacterBody2D
         }
         else if (animatedSprite2D.Animation == "punch")
         {
-            float directionModifier = animatedSprite2D.FlipH ? 1 : -1; // 1 si mira a la derecha, -1 si mira a la izquierda
+            float directionModifier = animatedSprite2D.FlipH ? 1 : -1;
 
             hitboxUpperBody.Position = new Vector2(directionModifier * 50, originalUpperBodyHitboxPositionY);
             hitboxLowerBody.Position = new Vector2(directionModifier * 50, originalLowerBodyHitboxPositionY);
@@ -220,8 +227,6 @@ public partial class Player : CharacterBody2D
                 hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
 
             }
-
-            
         }
         else{
              hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
