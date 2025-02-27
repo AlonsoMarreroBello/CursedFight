@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq1dfm77dulv5"]
+
+[ext_resource type="Script" path="res://scenes/Main.cs" id="1_u7hbt"]
+[ext_resource type="PackedScene" uid="uid://bc0ncgpyrrr0x" path="res://scenes/MainMenu.tscn" id="2_1s67i"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_u7hbt")
+
+[node name="MainMenu" parent="." instance=ExtResource("2_1s67i")]
