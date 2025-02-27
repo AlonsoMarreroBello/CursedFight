@@ -3,7 +3,6 @@ using System;
 
 public partial class Main : Control
 {
-	public bool isSinglePlayer = false;
 	public bool isMultiplayer = false;
 
 	// Called when the node enters the scene tree for the first time.

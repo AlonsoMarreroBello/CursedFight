@@ -28,7 +28,7 @@ public partial class MainMenu : Node2D
 			return;
 		}
 
-		main.isSinglePlayer = true;
+		main.isMultiplayer = false;
 		GD.Print("SINGLE PLAYER MODE ON");
 		main.AddChild(_new_scene.Instantiate<StageSelection>());
 		main.RemoveChild(this);
