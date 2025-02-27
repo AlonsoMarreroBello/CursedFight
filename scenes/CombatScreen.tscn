@@ -1,24 +1,54 @@
-[gd_scene load_steps=15 format=3 uid="uid://dvvj60y3lmdmk"]
+[gd_scene load_steps=40 format=3 uid="uid://dvvj60y3lmdmk"]
 
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
 [ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
-[ext_resource type="Texture2D" uid="uid://b53xvqia43xh" path="res://assets/BackGrounds/Airplain/Airplane.png" id="1_oh284"]
+[ext_resource type="Texture2D" uid="uid://b43uw4j2tutl" path="res://assets/BackGrounds/Airplain/Airplane(wo-clouds).png" id="2_sdfl0"]
 [ext_resource type="Texture2D" uid="uid://bl2eqwx85whe7" path="res://assets/BackGrounds/FightClub/FightClub02.png" id="2_w6a75"]
-[ext_resource type="Texture2D" uid="uid://cvsdiegobia77" path="res://assets/BackGrounds/ThroneRoom/ThroneRoom.png" id="3_nau5g"]
+[ext_resource type="Texture2D" uid="uid://klpefyfpn5w4" path="res://assets/BackGrounds/ThroneRoom/ThroneRoom01.png" id="5_2o4vk"]
+[ext_resource type="Texture2D" uid="uid://dfcpx20qa4ad1" path="res://assets/BackGrounds/LaGomera/TheGomera(wo-clouds).png" id="5_al5qf"]
+[ext_resource type="Texture2D" uid="uid://c1smhar38ccjg" path="res://assets/BackGrounds/ThroneRoom/ThroneRoom02.png" id="6_3n30s"]
 [ext_resource type="Texture2D" uid="uid://d0j7d22rgiyk3" path="res://assets/UI/CombatScreen/healthBar/HEALTH_BAR_BACKGROUND.png" id="6_cag1l"]
+[ext_resource type="Texture2D" uid="uid://bcphg1hjph11g" path="res://assets/BackGrounds/ThroneRoom/ThroneRoom03.png" id="7_7fltg"]
 [ext_resource type="Texture2D" uid="uid://g6nwo4ak54wn" path="res://assets/UI/CombatScreen/healthBar/HEALTH BAR.png" id="7_rljoi"]
 [ext_resource type="Texture2D" uid="uid://d27pbfkqlttfe" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR_BACKGROUND.png" id="8_mm6ax"]
 [ext_resource type="Texture2D" uid="uid://flb1t5wsswgo" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR.png" id="9_de3vv"]
+[ext_resource type="Texture2D" uid="uid://b3j056mr6hwyu" path="res://assets/BackGrounds/LaGomera/GomeraPlatform.png" id="9_mlg6c"]
 [ext_resource type="Texture2D" uid="uid://d1n2tq1xy3jed" path="res://assets/UI/CombatScreen/timer/TIMER.png" id="10_cpny2"]
 [ext_resource type="PackedScene" uid="uid://p28js4xdygbd" path="res://scenes/Player.tscn" id="11_e3v3d"]
+[ext_resource type="Texture2D" uid="uid://cf7a4glm24j5u" path="res://assets/BackGrounds/Airplain/Stork/StorkSpritesheet.png" id="12_e3ejr"]
+[ext_resource type="Texture2D" uid="uid://ow2ya4hwxtim" path="res://assets/BackGrounds/LaGomera/Armas/ArmasSpritesheet.png" id="16_mmn5i"]
+[ext_resource type="Texture2D" uid="uid://do41wkycp2wdo" path="res://assets/BackGrounds/LaGomera/Clouds.png" id="16_su0gd"]
+[ext_resource type="Texture2D" uid="uid://ha0ciulbisbv" path="res://assets/BackGrounds/LaGomera/FredOlsen/FredOlsenSpritesheet.png" id="17_8pu7c"]
+[ext_resource type="Texture2D" uid="uid://beg717o8b2oic" path="res://assets/BackGrounds/Airplain/CloudsAirplane.png" id="18_r4hh7"]
+[ext_resource type="Script" path="res://scenes/Parallax2d.cs" id="22_ym3hm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1q2kl"]
+atlas = ExtResource("2_sdfl0")
+region = Rect2(0, 0, 2560, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kisx"]
+atlas = ExtResource("5_al5qf")
+region = Rect2(0, 0, 2560, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlil3"]
+atlas = ExtResource("5_2o4vk")
+region = Rect2(0, 0, 2560, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1e7k"]
+atlas = ExtResource("6_3n30s")
+region = Rect2(0, 0, 2560, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rgg3"]
+atlas = ExtResource("7_7fltg")
+region = Rect2(0, 0, 2560, 1440)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5pnxe"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_oh284")
+"texture": SubResource("AtlasTexture_1q2kl")
 }],
-"loop": true,
+"loop": false,
 "name": &"airplane",
 "speed": 5.0
 }, {
@@ -35,12 +65,216 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_nau5g")
+"texture": SubResource("AtlasTexture_0kisx")
 }],
-"loop": true,
+"loop": false,
+"name": &"la_gomera",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_hlil3")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_e1e7k")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_0rgg3")
+}],
+"loop": false,
 "name": &"throne_room",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_a8gaw"]
+resource_name = "Armas"
+length = 5.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1505.98, -46.4808), Vector2(1475.43, -53.1209)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_onfjn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1505.98, -46.4808)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qnu0r"]
+_data = {
+"Armas": SubResource("Animation_a8gaw"),
+"RESET": SubResource("Animation_onfjn")
+}
+
+[sub_resource type="Animation" id="Animation_atvfi"]
+resource_name = "FredOlsen"
+length = 3.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FredOlsenShip:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1447.54, -300.133), Vector2(475.432, 387.782)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FredOlsenShip:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_nir27"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FredOlsenShip:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1447.54, -300.133)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FredOlsenShip:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_47ba8"]
+_data = {
+"FredOlsen": SubResource("Animation_atvfi"),
+"RESET": SubResource("Animation_nir27")
+}
+
+[sub_resource type="Animation" id="Animation_x0jpo"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1426.29, -345.286)]
+}
+
+[sub_resource type="Animation" id="Animation_v7ur1"]
+resource_name = "stork"
+length = 5.5
+loop_mode = 1
+step = 0.19
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19, 0.38, 0.57, 0.76, 0.95, 1.14, 1.33, 1.52, 1.71, 1.9, 2.09, 2.28, 2.47, 2.66, 2.85, 3.04, 3.23, 3.42, 3.61, 3.8, 3.99, 4.18, 4.37, 4.56, 4.75, 4.94, 5.13, 5.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1426.29, -345.286), Vector2(1406.38, -345.286)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cuwpc"]
+_data = {
+"RESET": SubResource("Animation_x0jpo"),
+"stork": SubResource("Animation_v7ur1")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_htrw5"]
 size = Vector2(84.5, 1055)
@@ -48,17 +282,69 @@ size = Vector2(84.5, 1055)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isp2q"]
 size = Vector2(2541, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie301"]
+size = Vector2(1074, 67.75)
+
 [node name="CombatScreen" type="Node2D"]
 position = Vector2(-3, 0)
 script = ExtResource("1_m2jjk")
 
 [node name="BackgroundImage" type="AnimatedSprite2D" parent="."]
-position = Vector2(963, 540)
+position = Vector2(968, 548)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_5pnxe")
-animation = &"fight_club"
-frame = 1
-frame_progress = 0.74228
+animation = &"airplane"
+
+[node name="GomeraPlatform" type="Sprite2D" parent="BackgroundImage"]
+z_index = 1
+position = Vector2(-1.328, 480.744)
+scale = Vector2(1, 1)
+texture = ExtResource("9_mlg6c")
+
+[node name="ArmasShip" type="Sprite2D" parent="BackgroundImage"]
+position = Vector2(-1505.98, -46.4808)
+texture = ExtResource("16_mmn5i")
+hframes = 3
+
+[node name="Animation" type="AnimationPlayer" parent="BackgroundImage/ArmasShip"]
+libraries = {
+"": SubResource("AnimationLibrary_qnu0r")
+}
+
+[node name="FredOlsenShip" type="Sprite2D" parent="BackgroundImage"]
+position = Vector2(1447.54, -300.133)
+texture = ExtResource("17_8pu7c")
+hframes = 3
+
+[node name="Animation" type="AnimationPlayer" parent="BackgroundImage/FredOlsenShip"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_47ba8")
+}
+
+[node name="Stork" type="Sprite2D" parent="BackgroundImage"]
+position = Vector2(-1426.29, -345.286)
+texture = ExtResource("12_e3ejr")
+hframes = 4
+
+[node name="Animation" type="AnimationPlayer" parent="BackgroundImage/Stork"]
+libraries = {
+"": SubResource("AnimationLibrary_cuwpc")
+}
+
+[node name="Parallax2D" type="Parallax2D" parent="BackgroundImage"]
+scroll_offset = Vector2(2560, 0)
+repeat_size = Vector2(2560, 0)
+repeat_times = 3
+script = ExtResource("22_ym3hm")
+
+[node name="Clouds3" type="Sprite2D" parent="BackgroundImage/Parallax2D"]
+z_index = -1
+texture_repeat = 3
+texture = ExtResource("16_su0gd")
+
+[node name="CloudsAirplane" type="Sprite2D" parent="BackgroundImage/Parallax2D"]
+texture = ExtResource("18_r4hh7")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -133,11 +419,12 @@ metadata/_edit_use_anchors_ = true
 wait_time = 99.0
 
 [node name="Player" parent="." instance=ExtResource("11_e3v3d")]
+z_index = 1
 position = Vector2(344, 775)
 
 [node name="Player2" parent="." instance=ExtResource("11_e3v3d")]
+z_index = 1
 position = Vector2(1513, 772)
-playerNumber = 2
 
 [node name="StageLimits" type="StaticBody2D" parent="."]
 
@@ -152,5 +439,11 @@ shape = SubResource("RectangleShape2D_isp2q")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StageLimits"]
 position = Vector2(-35, 523)
 shape = SubResource("RectangleShape2D_htrw5")
+
+[node name="AirplaneCollision" type="CollisionShape2D" parent="StageLimits"]
+position = Vector2(964, 985.75)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_ie301")
+debug_color = Color(0, 0.640815, 0.344117, 0.42)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

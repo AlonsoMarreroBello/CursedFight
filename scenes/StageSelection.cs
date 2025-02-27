@@ -22,7 +22,9 @@ public partial class StageSelection : Node2D
 			case "throne_room":
 				_change_texture(CursedFight.Global.Assets.THRONE_ROOM_BACKGROUND, _background_image);
 				break;
-
+			case "la_gomera":
+				_change_texture(CursedFight.Global.Assets.LA_GOMERA_BACKGROUND, _background_image);
+				break;
 			default:
 				break;
 		}
