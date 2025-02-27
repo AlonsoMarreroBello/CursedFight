@@ -298,7 +298,6 @@ animation = &"airplane"
 [node name="GomeraPlatform" type="Sprite2D" parent="BackgroundImage"]
 z_index = 1
 position = Vector2(-1.328, 480.744)
-scale = Vector2(1, 1)
 texture = ExtResource("9_mlg6c")
 
 [node name="ArmasShip" type="Sprite2D" parent="BackgroundImage"]
