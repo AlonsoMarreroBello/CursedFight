@@ -293,9 +293,10 @@ script = ExtResource("1_m2jjk")
 position = Vector2(968, 548)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_5pnxe")
-animation = &"la_gomera"
+animation = &"airplane"
 
 [node name="GomeraPlatform" type="Sprite2D" parent="BackgroundImage"]
+z_index = 1
 position = Vector2(-1.328, 480.744)
 scale = Vector2(1, 1)
 texture = ExtResource("9_mlg6c")
@@ -338,6 +339,7 @@ repeat_times = 3
 script = ExtResource("22_ym3hm")
 
 [node name="Clouds3" type="Sprite2D" parent="BackgroundImage/Parallax2D"]
+z_index = -1
 texture_repeat = 3
 texture = ExtResource("16_su0gd")
 
@@ -417,9 +419,11 @@ metadata/_edit_use_anchors_ = true
 wait_time = 99.0
 
 [node name="Player" parent="." instance=ExtResource("11_e3v3d")]
+z_index = 1
 position = Vector2(344, 775)
 
 [node name="Player2" parent="." instance=ExtResource("11_e3v3d")]
+z_index = 1
 position = Vector2(1513, 772)
 
 [node name="StageLimits" type="StaticBody2D" parent="."]
