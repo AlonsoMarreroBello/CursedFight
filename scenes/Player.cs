@@ -5,53 +5,53 @@ using System.Collections.Generic;
 public partial class Player : CharacterBody2D
 {
 	[Export] public int playerNumber = 1;
-    public const float Speed = 1000.0f;
-    public const float JumpHeight = -2050.0f;
-    public const float JumpSpeedMultiplier = 8.5f;
-    public const float FallSpeedMultiplier = 8.5f;
-    private AnimatedSprite2D animatedSprite2D;
+	public const float Speed = 1000.0f;
+	public const float JumpHeight = -2050.0f;
+	public const float JumpSpeedMultiplier = 8.5f;
+	public const float FallSpeedMultiplier = 8.5f;
+	private AnimatedSprite2D animatedSprite2D;
 
-    private Area2D hitboxPunch;
-    private Area2D hitboxKick;
+	private Area2D hitboxPunch;
+	private Area2D hitboxKick;
 	private CollisionShape2D hitboxUpperBody;
 
-    private CollisionShape2D hitboxLowerBody;
+	private CollisionShape2D hitboxLowerBody;
 
-    private float originalUpperBodyHitboxPositionX;
+	private float originalUpperBodyHitboxPositionX;
 	private float originalUpperBodyHitboxPositionY;
 
 	private float originalLowerBodyHitboxPositionY;
 
 	private float originalLowerBodyHitboxPositionX;
-    private Dictionary<string, int> impactFrames;
+	private Dictionary<string, int> impactFrames;
 
-    private string currentAnimation = "idle";
+	private string currentAnimation = "idle";
 	private Player otherPlayer;
 	private bool facingRight = true;
-    public override void _Ready()
-    {
-        animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        animatedSprite2D.Play(currentAnimation);
-        impactFrames = new Dictionary<string, int>
-        {
-            { "punch", 3 },
-            { "kick", 3 },
-        };
-        hitboxPunch = GetNode<Area2D>("HitboxPunch");
-        hitboxPunch.Monitoring = false;
-        hitboxPunch.Visible = false;
-        hitboxKick = GetNode<Area2D>("HitboxKick");
-        hitboxKick.Monitoring = false;
-        hitboxKick.Visible = false;
-        hitboxUpperBody = GetNode<CollisionShape2D>("HitboxUpperBody");
+	public override void _Ready()
+	{
+		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		animatedSprite2D.Play(currentAnimation);
+		impactFrames = new Dictionary<string, int>
+		{
+			{ "punch", 3 },
+			{ "kick", 3 },
+		};
+		hitboxPunch = GetNode<Area2D>("HitboxPunch");
+		hitboxPunch.Monitoring = false;
+		hitboxPunch.Visible = false;
+		hitboxKick = GetNode<Area2D>("HitboxKick");
+		hitboxKick.Monitoring = false;
+		hitboxKick.Visible = false;
+		hitboxUpperBody = GetNode<CollisionShape2D>("HitboxUpperBody");
 		hitboxLowerBody = GetNode<CollisionShape2D>("HitboxLowerBody");
-        originalUpperBodyHitboxPositionX = hitboxUpperBody.Position.X;
+		originalUpperBodyHitboxPositionX = hitboxUpperBody.Position.X;
 		originalUpperBodyHitboxPositionY = hitboxUpperBody.Position.Y;
 		originalLowerBodyHitboxPositionY = hitboxLowerBody.Position.Y;
 		originalLowerBodyHitboxPositionX = hitboxLowerBody.Position.X;
 		animatedSprite2D.AnimationFinished += _on_animation_finished;
 		facingRight = playerNumber == 1;
-    }
+	}
 
 	public void _set_other_player(Player otherPlayer){
 		this.otherPlayer = otherPlayer;
@@ -65,40 +65,40 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        Vector2 velocity = Velocity;
+	public override void _PhysicsProcess(double delta)
+	{
+		Vector2 velocity = Velocity;
 
-        // Add the gravity.
-        if (!IsOnFloor())
-        {
-            velocity += GetGravity() * (float)delta;
-            if (velocity.Y > 0)
-            {
-                velocity.Y += GetGravity().Y * (FallSpeedMultiplier - 1) * (float)delta;
-                _change_state("fall"); 
-                GD.Print("Caída: " + currentAnimation + " IsOnFloor: " + IsOnFloor() + " Velocity.Y: " + velocity.Y);
-            }
-            if (velocity.Y < 0)
-            {
-                velocity.Y += GetGravity().Y * (JumpSpeedMultiplier - 1) * (float)delta;
-            }
-        }
+		// Add the gravity.
+		if (!IsOnFloor())
+		{
+			velocity += GetGravity() * (float)delta;
+			if (velocity.Y > 0)
+			{
+				velocity.Y += GetGravity().Y * (FallSpeedMultiplier - 1) * (float)delta;
+				_change_state("fall"); 
+				GD.Print("Caída: " + currentAnimation + " IsOnFloor: " + IsOnFloor() + " Velocity.Y: " + velocity.Y);
+			}
+			if (velocity.Y < 0)
+			{
+				velocity.Y += GetGravity().Y * (JumpSpeedMultiplier - 1) * (float)delta;
+			}
+		}
 
-        if ((playerNumber == 1 && Input.IsActionJustPressed("jump1") || playerNumber == 2 && Input.IsActionJustPressed("jump2")) && IsOnFloor())
-        {
-            velocity.Y = JumpHeight;
-            _change_state("jump"); 
-            GD.Print("Salto: " + currentAnimation);
-        }
-        else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("punch1") || playerNumber == 2 && Input.IsActionJustPressed("punch2")))
-        {
-            _change_state("punch");
-        }
-        else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("kick1") || playerNumber == 2 && Input.IsActionJustPressed("kick2")))
-        {
-            _change_state("kick");
-        } else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("crouch1") || playerNumber == 2 && Input.IsActionJustPressed("crouch2"))) {
+		if ((playerNumber == 1 && Input.IsActionJustPressed("jump1") || playerNumber == 2 && Input.IsActionJustPressed("jump2")) && IsOnFloor())
+		{
+			velocity.Y = JumpHeight;
+			_change_state("jump"); 
+			GD.Print("Salto: " + currentAnimation);
+		}
+		else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("punch1") || playerNumber == 2 && Input.IsActionJustPressed("punch2")))
+		{
+			_change_state("punch");
+		}
+		else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("kick1") || playerNumber == 2 && Input.IsActionJustPressed("kick2")))
+		{
+			_change_state("kick");
+		} else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustPressed("crouch1") || playerNumber == 2 && Input.IsActionJustPressed("crouch2"))) {
 			_change_state("crouch");
 		} else if (IsOnFloor() && (playerNumber == 1 && Input.IsActionJustReleased("crouch1") || playerNumber == 2 && Input.IsActionJustReleased("crouch2"))) {
 			_change_state("idle");
@@ -108,7 +108,7 @@ public partial class Player : CharacterBody2D
 			_change_state("idle");
 		}
 		Vector2 direction = Vector2.Zero;
-        	if (playerNumber == 1){
+			if (playerNumber == 1){
 			Vector2 playerOneDirection = Input.GetVector("left1", "right1", "jump1", "crouch1");
 			direction = playerOneDirection;
 		}
@@ -117,143 +117,143 @@ public partial class Player : CharacterBody2D
 			direction = playerTwoDirection;
 		}
 
-        if (direction != Vector2.Zero)
-        {
-            velocity.X = direction.X * Speed;
+		if (direction != Vector2.Zero)
+		{
+			velocity.X = direction.X * Speed;
 
-            if (direction.X > 0)
-            {
-                facingRight = true;
-            }
-            else if (direction.X < 0)
-            {
-                facingRight = false;
-            }
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-        }
+			if (direction.X > 0)
+			{
+				facingRight = true;
+			}
+			else if (direction.X < 0)
+			{
+				facingRight = false;
+			}
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+		}
 
 
-        Velocity = velocity;
-        MoveAndSlide();
-        if (IsOnFloor())
-        {
-            if (currentAnimation == "fall" || currentAnimation == "jump")
-            {
-                if (Mathf.Abs(velocity.X) > 0.1f)
-                {
-                    _change_state("idle"); 
-                }
-                else
-                {
-                    _change_state("idle");
-                }
-                GD.Print("Toca suelo: " + currentAnimation);
-            }
+		Velocity = velocity;
+		MoveAndSlide();
+		if (IsOnFloor())
+		{
+			if (currentAnimation == "fall" || currentAnimation == "jump")
+			{
+				if (Mathf.Abs(velocity.X) > 0.1f)
+				{
+					_change_state("idle"); 
+				}
+				else
+				{
+					_change_state("idle");
+				}
+				GD.Print("Toca suelo: " + currentAnimation);
+			}
 		}
 		 _update_facing_direction();
-    }
+	}
 
-    public override void _Process(double delta)
-    {
-       
-        _handle_hitbox_positions();
+	public override void _Process(double delta)
+	{
+	   
+		_handle_hitbox_positions();
 
-    }
+	}
 
-    // Actualiza la dirección del sprite
-    private void _update_facing_direction()
-    {
-        if (otherPlayer != null)
-        {
-            
-            facingRight = Position.X < otherPlayer.Position.X;
-        }
-        animatedSprite2D.FlipH = !facingRight;  
-    }
+	// Actualiza la dirección del sprite
+	private void _update_facing_direction()
+	{
+		if (otherPlayer != null)
+		{
+			
+			facingRight = Position.X < otherPlayer.Position.X;
+		}
+		animatedSprite2D.FlipH = !facingRight;  
+	}
 
 
-    private void _handle_hitbox_positions()
-    {
-        if (animatedSprite2D.FlipH)
-    	{
-        	hitboxPunch.Scale = new Vector2(-1, 1);
-        	hitboxKick.Scale = new Vector2(-1, 1);
-    	}
+	private void _handle_hitbox_positions()
+	{
+		if (animatedSprite2D.FlipH)
+		{
+			hitboxPunch.Scale = new Vector2(-1, 1);
+			hitboxKick.Scale = new Vector2(-1, 1);
+		}
    		 else
-    	{
-        	hitboxPunch.Scale = new Vector2(1, 1);
-        	hitboxKick.Scale = new Vector2(1, 1);
-    	}
-        if (animatedSprite2D.Animation == "kick")
-        {
-            float directionModifier = animatedSprite2D.FlipH ? 1 : -1; 
-            hitboxUpperBody.Position = new Vector2(directionModifier * 200, originalUpperBodyHitboxPositionY);
-            hitboxLowerBody.Position = new Vector2(directionModifier * 100, originalLowerBodyHitboxPositionY);
+		{
+			hitboxPunch.Scale = new Vector2(1, 1);
+			hitboxKick.Scale = new Vector2(1, 1);
+		}
+		if (animatedSprite2D.Animation == "kick")
+		{
+			float directionModifier = animatedSprite2D.FlipH ? 1 : -1; 
+			hitboxUpperBody.Position = new Vector2(directionModifier * 200, originalUpperBodyHitboxPositionY);
+			hitboxLowerBody.Position = new Vector2(directionModifier * 100, originalLowerBodyHitboxPositionY);
 
-            if (animatedSprite2D.Frame == impactFrames["kick"])
-            {
-                hitboxKick.Visible = true;
-                hitboxKick.Monitoring = true;
-            }
-            else
-            {
-                hitboxKick.Visible = false;
-                hitboxKick.Monitoring = false;
-                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
-                hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
-            }
-        }
-        else if (animatedSprite2D.Animation == "punch")
-        {
-            float directionModifier = animatedSprite2D.FlipH ? 1 : -1;
+			if (animatedSprite2D.Frame == impactFrames["kick"])
+			{
+				hitboxKick.Visible = true;
+				hitboxKick.Monitoring = true;
+			}
+			else
+			{
+				hitboxKick.Visible = false;
+				hitboxKick.Monitoring = false;
+				hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
+				hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
+			}
+		}
+		else if (animatedSprite2D.Animation == "punch")
+		{
+			float directionModifier = animatedSprite2D.FlipH ? 1 : -1;
 
-            hitboxUpperBody.Position = new Vector2(directionModifier * 50, originalUpperBodyHitboxPositionY);
-            hitboxLowerBody.Position = new Vector2(directionModifier * 50, originalLowerBodyHitboxPositionY);
+			hitboxUpperBody.Position = new Vector2(directionModifier * 50, originalUpperBodyHitboxPositionY);
+			hitboxLowerBody.Position = new Vector2(directionModifier * 50, originalLowerBodyHitboxPositionY);
 
 
-            if (animatedSprite2D.Frame == impactFrames["punch"])
-            {
-                hitboxPunch.Visible = true;
-                hitboxPunch.Monitoring = true;
-            }
-            else
-            {
-                hitboxPunch.Visible = false;
-                hitboxPunch.Monitoring = false;
-                hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
-                hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
+			if (animatedSprite2D.Frame == impactFrames["punch"])
+			{
+				hitboxPunch.Visible = true;
+				hitboxPunch.Monitoring = true;
+			}
+			else
+			{
+				hitboxPunch.Visible = false;
+				hitboxPunch.Monitoring = false;
+				hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
+				hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
 
-            }
-        }
-        else{
-             hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
-             hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
-             hitboxPunch.Visible = false;
-             hitboxPunch.Monitoring = false;
-             hitboxKick.Visible = false;
-             hitboxKick.Monitoring = false;
+			}
+		}
+		else{
+			 hitboxUpperBody.Position = new Vector2(originalUpperBodyHitboxPositionX, originalUpperBodyHitboxPositionY);
+			 hitboxLowerBody.Position = new Vector2(originalLowerBodyHitboxPositionX, originalLowerBodyHitboxPositionY);
+			 hitboxPunch.Visible = false;
+			 hitboxPunch.Monitoring = false;
+			 hitboxKick.Visible = false;
+			 hitboxKick.Monitoring = false;
 
-        }
-    }
+		}
+	}
 
-    private void _change_state(string newState)
-    {
-        if (currentAnimation == newState)
-            return;
+	private void _change_state(string newState)
+	{
+		if (currentAnimation == newState)
+			return;
 
-        currentAnimation = newState;
-        _play_animation(newState);
-    }
+		currentAnimation = newState;
+		_play_animation(newState);
+	}
 
-    private void _play_animation(string animationName)
-    {
-        GD.Print($"Attempting to play: {animationName}, Current animation: {animatedSprite2D.Animation}");
-        if (animatedSprite2D.Animation != animationName)
-        {
-            animatedSprite2D.Play(animationName);
-        }
-    }
+	private void _play_animation(string animationName)
+	{
+		GD.Print($"Attempting to play: {animationName}, Current animation: {animatedSprite2D.Animation}");
+		if (animatedSprite2D.Animation != animationName)
+		{
+			animatedSprite2D.Play(animationName);
+		}
+	}
 }
