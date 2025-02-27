@@ -29,7 +29,7 @@ scale = Vector2(0.751563, 0.752778)
 texture = ExtResource("2_0c08a")
 
 [node name="Selector" type="Sprite2D" parent="."]
-position = Vector2(961, 541)
+position = Vector2(971, 511)
 texture = ExtResource("1_ko41r")
 
 [node name="Map1" type="Control" parent="Selector"]
@@ -63,7 +63,7 @@ offset_bottom = 215.0
 position = Vector2(60.1207, -82.0465)
 scale = Vector2(1.0897, 1.32558)
 color = Color(1, 1, 1, 0)
-polygon = PackedVector2Array(-703.972, 152.421, -417.656, 151.667, -490.153, 245.211, -777.387, 245.211)
+polygon = PackedVector2Array(-706.727, 152.421, -417.656, 151.667, -490.153, 245.211, -780.142, 245.211)
 
 [node name="Button" type="Button" parent="Selector/Map2/Polygon2D"]
 offset_left = -795.748
@@ -105,7 +105,7 @@ offset_bottom = 215.0
 position = Vector2(60.1207, -82.0465)
 scale = Vector2(1.0897, 1.32558)
 color = Color(1, 1, 1, 0)
-polygon = PackedVector2Array(-378.197, 152.421, -95.5499, 153.93, -164.376, 242.193, -450.694, 245.211)
+polygon = PackedVector2Array(-380.032, 153.176, -91.8792, 153.176, -162.541, 243.702, -448.858, 244.456)
 
 [node name="Button" type="Button" parent="Selector/Map4/Polygon2D"]
 offset_left = -460.788

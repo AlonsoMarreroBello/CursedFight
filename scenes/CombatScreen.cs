@@ -41,12 +41,14 @@ public partial class CombatScreen : Node2D
 				_change_texture("la_gomera", _background_image);
 				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.MAIN_THEME);
 				this.GetNode<CollisionShape2D>("./StageLimits/AirplaneCollision").SetDeferred("disabled","false");
-				Sprite2D armasShip, fredOlsenShip;
-				armasShip = this.GetNode<Sprite2D>("./BackgroundImage/ArmasShip");
-				fredOlsenShip = this.GetNode<Sprite2D>("./BackgroundImage/FredOlsenShip");
+				Sprite2D armasShip, fredOlsenShip, platform;
+				armasShip = _background_image.GetNode<Sprite2D>("./ArmasShip");
+				fredOlsenShip = _background_image.GetNode<Sprite2D>("./FredOlsenShip");
+				platform = _background_image.GetNode<Sprite2D>("./GomeraPlatform");
 
 				armasShip.Show();
 				fredOlsenShip.Show();
+				platform.Show();
 
 				armasShip.GetNode<AnimationPlayer>("./Animation").Play("Armas");
 				fredOlsenShip.GetNode<AnimationPlayer>("./Animation").Play("FredOlsen");

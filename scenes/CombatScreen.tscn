@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dvvj60y3lmdmk"]
+[gd_scene load_steps=40 format=3 uid="uid://dvvj60y3lmdmk"]
 
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
 [ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://g6nwo4ak54wn" path="res://assets/UI/CombatScreen/healthBar/HEALTH BAR.png" id="7_rljoi"]
 [ext_resource type="Texture2D" uid="uid://d27pbfkqlttfe" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR_BACKGROUND.png" id="8_mm6ax"]
 [ext_resource type="Texture2D" uid="uid://flb1t5wsswgo" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR.png" id="9_de3vv"]
+[ext_resource type="Texture2D" uid="uid://b3j056mr6hwyu" path="res://assets/BackGrounds/LaGomera/GomeraPlatform.png" id="9_mlg6c"]
 [ext_resource type="Texture2D" uid="uid://d1n2tq1xy3jed" path="res://assets/UI/CombatScreen/timer/TIMER.png" id="10_cpny2"]
 [ext_resource type="PackedScene" uid="uid://p28js4xdygbd" path="res://scenes/Player.tscn" id="11_e3v3d"]
 [ext_resource type="Texture2D" uid="uid://cf7a4glm24j5u" path="res://assets/BackGrounds/Airplain/Stork/StorkSpritesheet.png" id="12_e3ejr"]
@@ -292,7 +293,12 @@ script = ExtResource("1_m2jjk")
 position = Vector2(968, 548)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_5pnxe")
-animation = &"airplane"
+animation = &"la_gomera"
+
+[node name="GomeraPlatform" type="Sprite2D" parent="BackgroundImage"]
+position = Vector2(-1.328, 480.744)
+scale = Vector2(1, 1)
+texture = ExtResource("9_mlg6c")
 
 [node name="ArmasShip" type="Sprite2D" parent="BackgroundImage"]
 position = Vector2(-1505.98, -46.4808)
