@@ -704,4 +704,3 @@ shape = SubResource("RectangleShape2D_kfrrr")
 [connection signal="body_entered" from="HitboxPunch" to="." method="_on_hitbox_punch_body_entered"]
 [connection signal="body_entered" from="HitboxKick" to="." method="_on_hitbox_kick_body_entered"]
 [connection signal="body_entered" from="HitboxUltimateKick" to="." method="_on_hitbox_ultimate_kick_body_entered"]
-
