@@ -29,7 +29,7 @@ scale = Vector2(0.751563, 0.752778)
 texture = ExtResource("2_0c08a")
 
 [node name="Selector" type="Sprite2D" parent="."]
-position = Vector2(971, 511)
+position = Vector2(960, 538)
 texture = ExtResource("1_ko41r")
 
 [node name="Map1" type="Control" parent="Selector"]
