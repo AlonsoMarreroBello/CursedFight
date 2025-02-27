@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dvvj60y3lmdmk"]
+[gd_scene load_steps=39 format=3 uid="uid://dvvj60y3lmdmk"]
 
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
 [ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
@@ -148,33 +148,6 @@ _data = {
 "RESET": SubResource("Animation_onfjn")
 }
 
-[sub_resource type="Animation" id="Animation_nir27"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("FredOlsenShip:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1447.54, -300.133)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FredOlsenShip:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_atvfi"]
 resource_name = "FredOlsen"
 length = 3.0
@@ -203,6 +176,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_nir27"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FredOlsenShip:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1447.54, -300.133)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FredOlsenShip:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_47ba8"]
@@ -281,12 +281,15 @@ size = Vector2(84.5, 1055)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isp2q"]
 size = Vector2(2541, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie301"]
+size = Vector2(1074, 67.75)
+
 [node name="CombatScreen" type="Node2D"]
 position = Vector2(-3, 0)
 script = ExtResource("1_m2jjk")
 
 [node name="BackgroundImage" type="AnimatedSprite2D" parent="."]
-position = Vector2(963, 540)
+position = Vector2(968, 548)
 scale = Vector2(0.753, 0.753)
 sprite_frames = SubResource("SpriteFrames_5pnxe")
 animation = &"airplane"
@@ -329,7 +332,6 @@ repeat_times = 3
 script = ExtResource("22_ym3hm")
 
 [node name="Clouds3" type="Sprite2D" parent="BackgroundImage/Parallax2D"]
-visible = false
 texture_repeat = 3
 texture = ExtResource("16_su0gd")
 
@@ -427,5 +429,11 @@ shape = SubResource("RectangleShape2D_isp2q")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StageLimits"]
 position = Vector2(-35, 523)
 shape = SubResource("RectangleShape2D_htrw5")
+
+[node name="AirplaneCollision" type="CollisionShape2D" parent="StageLimits"]
+position = Vector2(964, 985.75)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_ie301")
+debug_color = Color(0, 0.640815, 0.344117, 0.42)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

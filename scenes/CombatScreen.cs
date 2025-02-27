@@ -22,21 +22,25 @@ public partial class CombatScreen : Node2D
 				Sprite2D stork = this.GetNode<Sprite2D>("./BackgroundImage/Stork");
 				stork.Show();
 				_background_image.GetNode<Parallax2D>("./Parallax2D").Show();
+				_background_image.GetNode<Sprite2D>("./Parallax2D/Clouds3").Hide();
 				AnimationPlayer storkAnimation = stork.GetNode<AnimationPlayer>("./Animation");
 				storkAnimation.Play("stork");
+				GD.Print("bruh");
 				break;
 			case "fight_club":
 				_change_texture("fight_club", _background_image);
 				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.TECHNO_THEME);
+				this.GetNode<CollisionShape2D>("./StageLimits/AirplaneCollision").SetDeferred("disabled","false");
 				break;
 			case "throne_room":
 				_change_texture("throne_room", _background_image);
 				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.SURPRISE_IMPACT);
+				this.GetNode<CollisionShape2D>("./StageLimits/AirplaneCollision").SetDeferred("disabled","false");
 				break;
 			case "la_gomera":
 				_change_texture("la_gomera", _background_image);
 				_new_audio = GD.Load<AudioStream>(CursedFight.Global.Music.MAIN_THEME);
-
+				this.GetNode<CollisionShape2D>("./StageLimits/AirplaneCollision").SetDeferred("disabled","false");
 				Sprite2D armasShip, fredOlsenShip;
 				armasShip = this.GetNode<Sprite2D>("./BackgroundImage/ArmasShip");
 				fredOlsenShip = this.GetNode<Sprite2D>("./BackgroundImage/FredOlsenShip");
@@ -48,6 +52,7 @@ public partial class CombatScreen : Node2D
 				fredOlsenShip.GetNode<AnimationPlayer>("./Animation").Play("FredOlsen");
 
 				_background_image.GetNode<Parallax2D>("./Parallax2D").Show();
+				_background_image.GetNode<Sprite2D>("./Parallax2D/CloudsAirplane").Hide();
 				break;
 			default:
 				break;
