@@ -3,9 +3,10 @@ using System;
 
 public partial class StageSelection : Node2D
 {
-
+	Main main;
 	public override void _Ready()
 	{
+		main = this.GetParent() as Main;
 	}
 
 	private void _on_button_mouse_entered(string buttonName)
@@ -41,8 +42,8 @@ public partial class StageSelection : Node2D
 			return;
 		}
 
-		GetTree().ChangeSceneToPacked(_new_scene);
-
+		main.AddChild(_new_scene.Instantiate());
+		main.RemoveChild(this);
 	}
 
 	private void _on_return_button_pressed()
@@ -54,7 +55,8 @@ public partial class StageSelection : Node2D
 			return;
 		}
 
-		GetTree().ChangeSceneToPacked(_new_scene);
+		main.AddChild(_new_scene.Instantiate());
+		main.RemoveChild(this);
 	}
 
 	private void _change_texture(string textureRoute, Sprite2D sprite)
