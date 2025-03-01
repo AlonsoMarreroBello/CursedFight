@@ -1,0 +1,136 @@
+[gd_scene load_steps=12 format=3 uid="uid://bdw7l4fneqabq"]
+
+[ext_resource type="Texture2D" uid="uid://b14re6y57pl2p" path="res://assets/UI/MapSelector.png" id="1_ko41r"]
+[ext_resource type="Script" path="res://scenes/StageSelection.cs" id="1_mvmjv"]
+[ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="2_0c08a"]
+[ext_resource type="Theme" uid="uid://drjfnpq7v38fo" path="res://assets/UI/MapSelector/MapSelector.tres" id="2_hd626"]
+[ext_resource type="Texture2D" uid="uid://xofe1uo1tvb5" path="res://assets/UI/Buttons/returnOnClick.png" id="5_7cm27"]
+[ext_resource type="Texture2D" uid="uid://7vwt2wlbcdsj" path="res://assets/UI/Buttons/return.png" id="5_8lmxr"]
+[ext_resource type="Texture2D" uid="uid://b2s34b0n3ry2g" path="res://assets/UI/Buttons/returnHover.png" id="5_t66kb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_61kxl"]
+texture = ExtResource("5_7cm27")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocfce"]
+texture = ExtResource("5_t66kb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yt2xp"]
+texture = ExtResource("5_7cm27")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owlg0"]
+texture = ExtResource("5_8lmxr")
+
+[node name="StageSelection" type="Node2D"]
+script = ExtResource("1_mvmjv")
+
+[node name="BackgroundImage" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(0.751563, 0.752778)
+texture = ExtResource("2_0c08a")
+
+[node name="Selector" type="Sprite2D" parent="."]
+position = Vector2(960, 538)
+texture = ExtResource("1_ko41r")
+
+[node name="Map1" type="Control" parent="Selector"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Selector/Map1"]
+position = Vector2(60.1207, -82.0465)
+scale = Vector2(1.0897, 1.32558)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-703.972, 152.421, -417.656, 151.667, -490.153, 245.211, -777.387, 245.211)
+
+[node name="Button" type="Button" parent="Selector/Map1/Polygon2D"]
+offset_left = -795.748
+offset_top = 106.404
+offset_right = -397.748
+offset_bottom = 288.404
+theme = ExtResource("2_hd626")
+
+[node name="Map2" type="Control" parent="Selector"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -110.0
+offset_top = 175.0
+offset_right = -70.0
+offset_bottom = 215.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Selector/Map2"]
+position = Vector2(60.1207, -82.0465)
+scale = Vector2(1.0897, 1.32558)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-706.727, 152.421, -417.656, 151.667, -490.153, 245.211, -780.142, 245.211)
+
+[node name="Button" type="Button" parent="Selector/Map2/Polygon2D"]
+offset_left = -795.748
+offset_top = 106.404
+offset_right = -397.748
+offset_bottom = 288.404
+theme = ExtResource("2_hd626")
+
+[node name="Map3" type="Control" parent="Selector"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 357.0
+offset_top = 2.0
+offset_right = 397.0
+offset_bottom = 42.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Selector/Map3"]
+position = Vector2(60.1208, -82.0465)
+scale = Vector2(1.0897, 1.32558)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-703.972, 152.421, -417.656, 151.667, -490.153, 245.211, -777.387, 245.211)
+
+[node name="Button" type="Button" parent="Selector/Map3/Polygon2D"]
+offset_left = -795.748
+offset_top = 106.404
+offset_right = -397.748
+offset_bottom = 288.404
+theme = ExtResource("2_hd626")
+
+[node name="Map4" type="Control" parent="Selector"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -110.0
+offset_top = 175.0
+offset_right = -70.0
+offset_bottom = 215.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Selector/Map4"]
+position = Vector2(60.1207, -82.0465)
+scale = Vector2(1.0897, 1.32558)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-380.032, 153.176, -91.8792, 153.176, -162.541, 243.702, -448.858, 244.456)
+
+[node name="Button" type="Button" parent="Selector/Map4/Polygon2D"]
+offset_left = -460.788
+offset_top = 107.912
+offset_right = -62.7881
+offset_bottom = 289.912
+theme = ExtResource("2_hd626")
+
+[node name="ReturnButton" type="Button" parent="."]
+offset_left = 1831.0
+offset_right = 1920.0
+offset_bottom = 91.0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_61kxl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ocfce")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yt2xp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_owlg0")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="mouse_entered" from="Selector/Map1/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["airplane"]]
+[connection signal="pressed" from="Selector/Map1/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["airplane"]]
+[connection signal="mouse_entered" from="Selector/Map2/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["fight_club"]]
+[connection signal="pressed" from="Selector/Map2/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["fight_club"]]
+[connection signal="mouse_entered" from="Selector/Map3/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["throne_room"]]
+[connection signal="pressed" from="Selector/Map3/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["throne_room"]]
+[connection signal="mouse_entered" from="Selector/Map4/Polygon2D/Button" to="." method="_on_button_mouse_entered" binds= ["la_gomera"]]
+[connection signal="pressed" from="Selector/Map4/Polygon2D/Button" to="." method="_on_button_pressed" binds= ["la_gomera"]]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

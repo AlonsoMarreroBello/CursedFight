@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://p6jcstp3x2ra"]
+
+[ext_resource type="PackedScene" uid="uid://p28js4xdygbd" path="res://scenes/Player.tscn" id="1_jo5ml"]
+
+[node name="MultiplayerNode" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_jo5ml")]
+z_index = 1
+position = Vector2(344, 775)
+
+[node name="Player2" parent="." instance=ExtResource("1_jo5ml")]
+z_index = 1
+position = Vector2(1513, 772)
+playerNumber = 2

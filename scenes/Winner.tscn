@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bx62geo1ogtil"]
+
+[node name="Winner" type="Control"]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 785.0
+offset_top = 384.0
+offset_right = 1160.0
+offset_bottom = 631.0
+color = Color(0.439216, 0, 0.584314, 0.552941)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 811.0
+offset_top = 457.0
+offset_right = 1139.0
+offset_bottom = 526.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 38
+text = "Testing"
+horizontal_alignment = 1
+
+[node name="MainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 875.0
+offset_top = 567.0
+offset_right = 1071.0
+offset_bottom = 598.0
+text = "Volver al menú principal"
