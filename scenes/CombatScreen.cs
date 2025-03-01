@@ -4,9 +4,23 @@ public partial class CombatScreen : Node2D
 {
 	Timer _timer;
 	Label _timer_label;
+	Main main;
 
 	public override void _Ready()
 	{
+		main = this.GetParent() as Main;
+		if (main.isMultiplayer){
+			this.AddChild(GD.Load<PackedScene>("res://scenes/MultiplayerNode.tscn").Instantiate());
+
+			Player player1 = GetNode<Player>("./MultiplayerNode/Player");
+			Player player2 = GetNode<Player>("./MultiplayerNode/Player2");
+
+			player1._set_other_player(player2);
+			player2._set_other_player(player1);
+
+		} else{
+			this.AddChild(GD.Load<PackedScene>("res://scenes/SinglePlayerNode.tscn").Instantiate());
+		}
 		GD.Print("Entro");
 		AnimatedSprite2D _background_image = GetNode<AnimatedSprite2D>("BackgroundImage");
 		AudioStreamPlayer _audio_player = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
@@ -68,11 +82,6 @@ public partial class CombatScreen : Node2D
 
 		_timer.Start();
 		
-		Player player1 = GetNode<Player>("Player");
-		Player player2 = GetNode<Player>("Player2");
-
-		player1._set_other_player(player2);
-		player2._set_other_player(player1);
 	}
 
 	public override void _Process(double delta)
@@ -96,4 +105,28 @@ public partial class CombatScreen : Node2D
 			item.Hide();
 		}
 	}
+
+	public void FinishCombat(int id){
+		//TODO add logic to show winner combat
+
+		this.AddChild(GD.Load<PackedScene>("res://scenes/Winner.tscn").Instantiate());
+
+		if (id == 1 && main.isMultiplayer){
+			this.GetNode<Label>("./Winner/Label").Text = "Winner is player 2";
+		}else if(id == 1 && !main.isMultiplayer){
+			this.GetNode<Label>("./Winner/Label").Text = "Winner is AI";
+		}else{
+			this.GetNode<Label>("./Winner/Label").Text = "Winner is player 1";
+		}
+
+		this.GetNode<Button>("./Winner/MainMenu").ProcessMode = ProcessModeEnum.Always;
+		GetTree().Paused = true;
+
+		this.GetNode<Button>("./Winner/MainMenu").Pressed += () =>
+		{
+			GetTree().Paused = false;
+			GetTree().ChangeSceneToFile("res://scenes/MainMenu.tscn");
+		};
+	}
+
 }

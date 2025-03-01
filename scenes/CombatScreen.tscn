@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dvvj60y3lmdmk"]
+[gd_scene load_steps=39 format=3 uid="uid://dvvj60y3lmdmk"]
 
 [ext_resource type="Texture2D" uid="uid://cxekk3ufq55pr" path="res://assets/BackGrounds/FightClub/FightClub01.png" id="1_h6yxv"]
 [ext_resource type="Script" path="res://scenes/CombatScreen.cs" id="1_m2jjk"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://flb1t5wsswgo" path="res://assets/UI/CombatScreen/energyBar/ENERGY_BAR.png" id="9_de3vv"]
 [ext_resource type="Texture2D" uid="uid://b3j056mr6hwyu" path="res://assets/BackGrounds/LaGomera/GomeraPlatform.png" id="9_mlg6c"]
 [ext_resource type="Texture2D" uid="uid://d1n2tq1xy3jed" path="res://assets/UI/CombatScreen/timer/TIMER.png" id="10_cpny2"]
-[ext_resource type="PackedScene" uid="uid://p28js4xdygbd" path="res://scenes/Player.tscn" id="11_e3v3d"]
 [ext_resource type="Texture2D" uid="uid://cf7a4glm24j5u" path="res://assets/BackGrounds/Airplain/Stork/StorkSpritesheet.png" id="12_e3ejr"]
 [ext_resource type="Texture2D" uid="uid://ow2ya4hwxtim" path="res://assets/BackGrounds/LaGomera/Armas/ArmasSpritesheet.png" id="16_mmn5i"]
 [ext_resource type="Texture2D" uid="uid://do41wkycp2wdo" path="res://assets/BackGrounds/LaGomera/Clouds.png" id="16_su0gd"]
@@ -354,6 +353,7 @@ offset_top = -84.0
 offset_right = 2644.0
 offset_bottom = 2416.0
 scale = Vector2(0.265, 0.195)
+fill_mode = 1
 texture_under = ExtResource("6_cag1l")
 texture_progress = ExtResource("7_rljoi")
 metadata/_edit_use_anchors_ = true
@@ -364,6 +364,7 @@ offset_top = -166.0
 offset_right = 2708.0
 offset_bottom = 2334.0
 scale = Vector2(0.235, 0.195)
+fill_mode = 1
 texture_under = ExtResource("8_mm6ax")
 texture_progress = ExtResource("9_de3vv")
 metadata/_edit_use_anchors_ = true
@@ -376,6 +377,7 @@ offset_top = -83.0
 offset_right = 4277.5
 offset_bottom = 2417.0
 scale = Vector2(-0.265, 0.195)
+fill_mode = 1
 texture_under = ExtResource("6_cag1l")
 texture_progress = ExtResource("7_rljoi")
 metadata/_edit_use_anchors_ = true
@@ -386,6 +388,7 @@ offset_top = -167.0
 offset_right = 4206.5
 offset_bottom = 2333.0
 scale = Vector2(-0.235, 0.195)
+fill_mode = 1
 texture_under = ExtResource("8_mm6ax")
 texture_progress = ExtResource("9_de3vv")
 metadata/_edit_use_anchors_ = true
@@ -415,15 +418,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 99.0
-
-[node name="Player" parent="." instance=ExtResource("11_e3v3d")]
-z_index = 1
-position = Vector2(344, 775)
-
-[node name="Player2" parent="." instance=ExtResource("11_e3v3d")]
-z_index = 1
-position = Vector2(1513, 772)
-playerNumber = 2
 
 [node name="StageLimits" type="StaticBody2D" parent="."]
 

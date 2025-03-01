@@ -88,10 +88,10 @@ public partial class Player : CharacterBody2D
         animatedSprite2D.FrameChanged += _on_frame_changed;
 
         facingRight = playerNumber == 1;
-        healthBarP1 = GetParent().GetNode<TextureProgressBar>("UI/Player1/LifeBar");
-        energyBarP1 = GetParent().GetNode<TextureProgressBar>("UI/Player1/EnergyBar");
-        healthBarP2 = GetParent().GetNode<TextureProgressBar>("UI/Player2/LifeBar");
-        energyBarP2 = GetParent().GetNode<TextureProgressBar>("UI/Player2/EnergyBar");
+        healthBarP1 = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player1/LifeBar");
+        energyBarP1 = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player1/EnergyBar");
+        healthBarP2 = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player2/LifeBar");
+        energyBarP2 = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player2/EnergyBar");
         if (playerNumber == 1)
         {
             healthBarP1.Value = health;
@@ -419,6 +419,13 @@ public partial class Player : CharacterBody2D
         displacement = false;
     }
 
+    private void ApplyAttackToEnemy(Enemy target, int damage, int energyGain)
+    {
+        GD.Print($"Player {playerNumber} golpea al enemigo por {damage} de daño.");
+        target.TakeDamage(damage);
+        ApplyEnergy(energyGain);
+    }
+
     private void _on_hitbox_punch_body_entered(Node2D body)
     {
         if (body is Player targetPlayer && targetPlayer != this && currentAnimation == "punch")
@@ -441,6 +448,9 @@ public partial class Player : CharacterBody2D
 
             }
             ApplyEnergy(10);
+        }else if (body is Enemy targetEnemy && currentAnimation == "punch")
+        {
+            ApplyAttackToEnemy(targetEnemy, 5, 10);
         }
 
     }
@@ -467,6 +477,9 @@ public partial class Player : CharacterBody2D
                 
             }
             ApplyEnergy(5);
+        }else if (body is Enemy targetEnemy && currentAnimation == "kick")
+        {
+            ApplyAttackToEnemy(targetEnemy, 5, 10);
         }
     }
 
@@ -491,6 +504,9 @@ public partial class Player : CharacterBody2D
                 targetPlayer.ApplyPush(this, "ultimate");
             }
 
+        }else if (body is Enemy targetEnemy && currentAnimation == "punch")
+        {
+            ApplyAttackToEnemy(targetEnemy, 30, 50);
         }
 
     }
@@ -594,6 +610,7 @@ public partial class Player : CharacterBody2D
         if (health <= 0)
         {
             health = 0;
+            (this.GetParent().GetParent() as CombatScreen).FinishCombat(this.playerNumber);
             return;
         }
         health -= damage;
@@ -634,5 +651,9 @@ public partial class Player : CharacterBody2D
     private void TargetReceiveDamage()
     {
         hasReceivedDamage = true;
+    }
+
+    public int GetHealth() {
+        return health;
     }
 }
