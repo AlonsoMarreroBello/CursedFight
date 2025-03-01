@@ -652,4 +652,8 @@ public partial class Player : CharacterBody2D
     {
         hasReceivedDamage = true;
     }
+
+    public int GetHealth() {
+        return health;
+    }
 }

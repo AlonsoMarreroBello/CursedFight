@@ -17,6 +17,7 @@ public partial class Enemy : CharacterBody2D
     private int health = 100;
     private int energy = 0;
     private int maxEnergy = 100;
+    private bool isGameOver = false;
 
     private AnimatedSprite2D animatedSprite2D;
     private Player targetPlayer;
@@ -45,6 +46,9 @@ public partial class Enemy : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (isGameOver)
+            return;
+            
         GD.Print(currentAnimation);
         if (targetPlayer == null)
             return;
@@ -91,6 +95,7 @@ public partial class Enemy : CharacterBody2D
                 {
                     _change_state("ultimate");
                     energy = 0;
+                    energyBar.Value = energy;
                 }
                 else if (distanceToPlayer > attackRange)
                 {
@@ -152,7 +157,6 @@ public partial class Enemy : CharacterBody2D
         isAttacking = true; 
         attackTimer = attackCooldown; 
         appliedDamage = false;
-        currentAnimation = "attack";
         
         if (GD.Randf() < 0.5f)
         {
@@ -165,15 +169,16 @@ public partial class Enemy : CharacterBody2D
             _change_state("kick");        
         }
 
+        animatedSprite2D.AnimationFinished -= ChangeToIdle;
         animatedSprite2D.AnimationFinished += ChangeToIdle;
     }
 
     private void ChangeToIdle()
     {
         animatedSprite2D.AnimationFinished -= ChangeToIdle;
-        currentAnimation = "idle";
         _change_state("idle");
         isAttacking = false;
+        appliedDamage = false;
     }
 
     private void _change_state(string newState)
@@ -186,54 +191,95 @@ public partial class Enemy : CharacterBody2D
 
     public void TakeDamage(int damage)
     {
+        if (isGameOver)
+            return;
+            
         health -= damage;
+        health = Math.Max(0, health); 
+        
+        healthBar.Value = health;
+        
         if (health <= 0)
         {
-            (this.GetParent().GetParent() as CombatScreen).FinishCombat(0);
+            GD.Print("Enemy health reached zero, ending combat");
+            FinishCombat(0);
         }
+    }
+    
+    private void FinishCombat(int winner)
+    {
+        if (isGameOver)
+            return;
+        
+        isGameOver = true;
+        var combatScreen = GetParent().GetParent() as CombatScreen;
+        if (combatScreen != null)
+        {
+            combatScreen.FinishCombat(winner);
+        }
+        else
+        {
+            GD.Print("CombatScreen is null, can't finish combat");
+        }
+    }
 
-        healthBar.Value = health;
+    public int GetHealth()
+    {
+        return health;
     }
 
     private void _on_hitbox_punch_body_entered(Node2D body)
     {
-        if (appliedDamage)
+        if (appliedDamage || isGameOver)
             return;
+            
         GD.Print("Ahora si");
-        if (body is Player targetPlayer)
+        if (body is Player player)
         {
-            ApplyAttackToPlayer(targetPlayer, 5, 12);
+            ApplyAttackToPlayer(player, 5, 12);
             appliedDamage = true;
         }
     }
 
     public void _on_hitbox_kick_body_entered(Node2D body)
     {
-        if (appliedDamage)
+        if (appliedDamage || isGameOver)
             return;
-        if (body is Player targetPlayer)
+            
+        if (body is Player player)
         {
-            ApplyAttackToPlayer(targetPlayer, 5, 10);
+            ApplyAttackToPlayer(player, 5, 10);
             appliedDamage = true;
         }
     }
 
     public void _on_hitbox_ultimate_kick_body_entered(Node2D body)
     {
-        if (appliedDamage)
+        if (appliedDamage || isGameOver)
             return;
-        if (body is Player targetPlayer)
+            
+        if (body is Player player)
         {
-            ApplyAttackToPlayer(targetPlayer, 30, 50);
+            ApplyAttackToPlayer(player, 30, 50);
             appliedDamage = true;
         }
     }
 
     private void ApplyAttackToPlayer(Player target, int damage, int energyGain)
     {
-        GD.Print($"El enemigo golpea al jugador por {damage} de daño.");
+        if (isGameOver)
+            return;
+            
+        GD.Print($"El enemigo golpea al jugador por {damage} de daño. Vida restante: {target.GetHealth() - damage}");
         target.TakeDamage(damage);
         energy += energyGain;
+        energy = Math.Min(energy, maxEnergy); 
         energyBar.Value = energy;
+        
+        if (target.GetHealth() <= 0)
+        {
+            GD.Print("El jugador ha muerto, terminando combate");
+            FinishCombat(1); 
+        }
     }
 }
