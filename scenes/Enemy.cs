@@ -1,7 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.Threading;
 
 public partial class Enemy : CharacterBody2D
 {
@@ -14,7 +12,7 @@ public partial class Enemy : CharacterBody2D
     [Export] private float ultimateThreshold = 100f;
     [Export] private float retreatTime = 0.5f; 
 
-	private TextureProgressBar healthBar, energyBar;
+    private TextureProgressBar healthBar, energyBar;
 
     private int health = 100;
     private int energy = 0;
@@ -30,24 +28,26 @@ public partial class Enemy : CharacterBody2D
     private bool isAttacking = false;
     private float attackCooldown = 0.5f; 
     private float attackTimer = 0f;
+    private bool appliedDamage = false;
 
     public override void _Ready()
     {
         animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         animatedSprite2D.Play(currentAnimation);
 
-		healthBar = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player2/LifeBar");
+        healthBar = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player2/LifeBar");
         energyBar = GetParent().GetParent().GetNode<TextureProgressBar>("UI/Player2/EnergyBar");
 
-		healthBar.Value = health;
+        healthBar.Value = health;
 
         targetPlayer = GetParent().GetNode<Player>("Player"); 
     }
 
     public override void _PhysicsProcess(double delta)
     {
-		GD.Print(currentAnimation);
-        if (targetPlayer == null) return;
+        GD.Print(currentAnimation);
+        if (targetPlayer == null)
+            return;
 
         float distanceToPlayer = Position.DistanceTo(targetPlayer.Position);
         Vector2 velocity = Velocity;
@@ -59,7 +59,15 @@ public partial class Enemy : CharacterBody2D
 
         if (isAttacking) 
         {
+            attackTimer -= (float)delta;
+            if (attackTimer <= 0)
+            {
+                isAttacking = false;
+                attackTimer = 0f;
+                appliedDamage = false;
+            }
             Velocity = Vector2.Zero;
+            MoveAndSlide();
             return;
         }
 
@@ -114,8 +122,8 @@ public partial class Enemy : CharacterBody2D
 
         _change_state("walk");
 
-		Random rnd = new();
-        if (rnd.Next(0,1000) < -1 && !isRetreating)
+        Random rnd = new();
+        if (rnd.Next(0, 1000) < -1 && !isRetreating)
         {
             isRetreating = true;
             retreatTimer = retreatTime;
@@ -143,30 +151,35 @@ public partial class Enemy : CharacterBody2D
     {
         isAttacking = true; 
         attackTimer = attackCooldown; 
-
+        appliedDamage = false;
+        currentAnimation = "attack";
         
-		if (GD.Randf() < 0.5f){
-			GD.Print("Entro");
-			_change_state("punch");
-		}
-		else{
-			GD.Print("Entro 2");
-			_change_state("kick");        
-		}
+        if (GD.Randf() < 0.5f)
+        {
+            GD.Print("Entro");
+            _change_state("punch");
+        }
+        else
+        {
+            GD.Print("Entro 2");
+            _change_state("kick");        
+        }
 
-        GetNode<AnimatedSprite2D>("./AnimatedSprite2D").AnimationFinished += ChangeToIdle;
-		        
+        animatedSprite2D.AnimationFinished += ChangeToIdle;
     }
 
-	private void ChangeToIdle(){
-		currentAnimation = "idle";
-		_change_state("idle");
-		isAttacking = false;
-	}
+    private void ChangeToIdle()
+    {
+        animatedSprite2D.AnimationFinished -= ChangeToIdle;
+        currentAnimation = "idle";
+        _change_state("idle");
+        isAttacking = false;
+    }
 
     private void _change_state(string newState)
     {
-        if (currentAnimation == newState) return;
+        if (currentAnimation == newState)
+            return;
         currentAnimation = newState;
         animatedSprite2D.Play(newState);
     }
@@ -179,39 +192,48 @@ public partial class Enemy : CharacterBody2D
             (this.GetParent().GetParent() as CombatScreen).FinishCombat(0);
         }
 
-		healthBar.Value = health;
+        healthBar.Value = health;
     }
 
-	private void _on_hitbox_punch_body_entered(Node2D body)
+    private void _on_hitbox_punch_body_entered(Node2D body)
     {
-		GD.Print("Ahora si");
-		if (body is Player targetPlayer)
-		{
-			ApplyAttackToPlayer(targetPlayer, 5, 12);
-		}
+        if (appliedDamage)
+            return;
+        GD.Print("Ahora si");
+        if (body is Player targetPlayer)
+        {
+            ApplyAttackToPlayer(targetPlayer, 5, 12);
+            appliedDamage = true;
+        }
     }
 
     public void _on_hitbox_kick_body_entered(Node2D body)
     {
+        if (appliedDamage)
+            return;
         if (body is Player targetPlayer)
-		{
-			ApplyAttackToPlayer(targetPlayer, 5, 10);
-		}
+        {
+            ApplyAttackToPlayer(targetPlayer, 5, 10);
+            appliedDamage = true;
+        }
     }
 
     public void _on_hitbox_ultimate_kick_body_entered(Node2D body)
     {
+        if (appliedDamage)
+            return;
         if (body is Player targetPlayer)
-		{
-			ApplyAttackToPlayer(targetPlayer, 30, 50);
-		}
+        {
+            ApplyAttackToPlayer(targetPlayer, 30, 50);
+            appliedDamage = true;
+        }
     }
 
-	private void ApplyAttackToPlayer(Player target, int damage, int energyGain)
-	{
-		GD.Print($"El enemigo golpea al jugador por {damage} de daño.");
-		target.TakeDamage(damage);
-		energy += energyGain;
-		energyBar.Value = energy;
-	}
+    private void ApplyAttackToPlayer(Player target, int damage, int energyGain)
+    {
+        GD.Print($"El enemigo golpea al jugador por {damage} de daño.");
+        target.TakeDamage(damage);
+        energy += energyGain;
+        energyBar.Value = energy;
+    }
 }
