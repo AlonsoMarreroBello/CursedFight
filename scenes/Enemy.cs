@@ -9,10 +9,10 @@ public partial class Enemy : CharacterBody2D
     //[Export] public float JumpHeight = -50.0f;
     [Export] private float attackRange = 170f;
     [Export] private float detectionRange = 800f;
-    [Export] private float blockChance = 0.3f; // 30% chance to block
-    [Export] private float jumpChance = 0.1f; // 10% chance to jump
+    [Export] private float blockChance = 0.3f; 
+    [Export] private float jumpChance = 0.1f;
     [Export] private float ultimateThreshold = 100f;
-    [Export] private float retreatTime = 0.5f; // Retreat duration
+    [Export] private float retreatTime = 0.5f; 
 
 	private TextureProgressBar healthBar, energyBar;
 
@@ -28,7 +28,7 @@ public partial class Enemy : CharacterBody2D
     private bool isRetreating = false;
     private float retreatTimer = 0f;
     private bool isAttacking = false;
-    private float attackCooldown = 0.5f; // Delay between attacks
+    private float attackCooldown = 0.5f; 
     private float attackTimer = 0f;
 
     public override void _Ready()
@@ -41,7 +41,6 @@ public partial class Enemy : CharacterBody2D
 
 		healthBar.Value = health;
 
-        // Find player in the scene
         targetPlayer = GetParent().GetNode<Player>("Player"); 
     }
 
@@ -53,7 +52,6 @@ public partial class Enemy : CharacterBody2D
         float distanceToPlayer = Position.DistanceTo(targetPlayer.Position);
         Vector2 velocity = Velocity;
 
-        // Apply gravity
         if (!IsOnFloor())
         {
             velocity += GetGravity() * (float)delta;
@@ -61,12 +59,10 @@ public partial class Enemy : CharacterBody2D
 
         if (isAttacking) 
         {
-            // If currently attacking, don't move
             Velocity = Vector2.Zero;
             return;
         }
 
-        // Handle retreat behavior
         if (isRetreating)
         {
             retreatTimer -= (float)delta;
@@ -102,7 +98,7 @@ public partial class Enemy : CharacterBody2D
             }
         }
 
-        attackTimer -= (float)delta; // Reduce attack cooldown
+        attackTimer -= (float)delta;
 
         Velocity = velocity;
         MoveAndSlide();
@@ -118,7 +114,6 @@ public partial class Enemy : CharacterBody2D
 
         _change_state("walk");
 
-        // Randomly decide to retreat
 		Random rnd = new();
         if (rnd.Next(0,1000) < -1 && !isRetreating)
         {
@@ -126,7 +121,6 @@ public partial class Enemy : CharacterBody2D
             retreatTimer = retreatTime;
         }
 
-        // Occasionally jump if far away
         if (GD.Randf() < jumpChance && IsOnFloor())
         {
             //velocity.Y = JumpHeight;
@@ -147,8 +141,8 @@ public partial class Enemy : CharacterBody2D
 
     private void DecideCombatAction()
     {
-        isAttacking = true; // Stop movement when attacking
-        attackTimer = attackCooldown; // Reset attack cooldown
+        isAttacking = true; 
+        attackTimer = attackCooldown; 
 
         
 		if (GD.Randf() < 0.5f){
@@ -160,7 +154,6 @@ public partial class Enemy : CharacterBody2D
 			_change_state("kick");        
 		}
 
-        // Wait for animation to finish before allowing movement
         GetNode<AnimatedSprite2D>("./AnimatedSprite2D").AnimationFinished += ChangeToIdle;
 		        
     }
